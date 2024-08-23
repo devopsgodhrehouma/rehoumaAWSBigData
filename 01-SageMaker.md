@@ -32,8 +32,14 @@ Amazon SageMaker est un service de machine learning entièrement géré qui perm
 
 En résumé, Amazon SageMaker est un outil puissant pour les professionnels du machine learning, offrant une plateforme intégrée pour développer, entraîner et déployer des modèles tout en optimisant les coûts et en simplifiant les workflows.
 
-Citations:
+---
+# Citations:
+<hr/>
+
 [1] https://aws.amazon.com/fr/sagemaker/faqs/
+
 [2] https://www.youtube.com/watch?v=TZNDerXVjvM
+
 [3] https://github.com/aws/amazon-sagemaker-examples/blob/main/README.md?plain=1
+
 [4] https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html
