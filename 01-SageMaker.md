@@ -95,6 +95,35 @@ Voici un tableau récapitulatif des services AWS mentionnés dans le diagramme :
 Ces services collaborent pour former une pipeline de données complète, allant de l'ingestion des données à leur analyse et visualisation.
 
 
+Voici une table récapitulative des services AWS mentionnés dans les images :
+
+| **Catégorie**                      | **Service**                             | **Description**                                                                 |
+|------------------------------------|-----------------------------------------|---------------------------------------------------------------------------------|
+| **Workflow Services**              | SageMaker                               | Service de machine learning pour créer, entraîner et déployer des modèles.      |
+|                                    | Amazon EMR                              | Service pour traiter de grandes quantités de données avec Hadoop et Spark.      |
+|                                    | AWS Batch                               | Exécute des travaux batch à n'importe quelle échelle.                           |
+|                                    | Amazon EKS                              | Service pour exécuter des applications Kubernetes.                              |
+|                                    | DLAMI                                   | Amazon Machine Images pour le deep learning.                                    |
+|                                    | Deep Learning Containers                | Conteneurs optimisés pour le deep learning.                                     |
+|                                    | AWS ParallelCluster                     | Gestion de clusters HPC (High-Performance Computing).                           |
+|                                    | Amazon ECS                              | Service de conteneurisation pour exécuter des applications en conteneurs.       |
+| **Frameworks**                     | TensorFlow, PyTorch, MXNet, Keras, Gluon, Horovod | Frameworks populaires pour le développement de modèles de machine learning.    |
+| **Compute, Networking, Storage**   | EC2 P3, P4, G4, Inf1 instances          | Instances de calcul optimisées pour le machine learning et le deep learning.    |
+|                                    | Elastic Inference                       | Ajoute de la capacité d'inférence à vos instances EC2.                          |
+|                                    | Elastic Fabric Adapter                  | Réseau haute performance pour les applications HPC.                             |
+|                                    | Amazon S3                               | Stockage d'objets scalable et sécurisé.                                         |
+|                                    | Amazon EFS                              | Système de fichiers scalable et élastique pour le stockage partagé.             |
+|                                    | Amazon EBS                              | Stockage de blocs pour les instances EC2.                                       |
+|                                    | Amazon FSx                              | Systèmes de fichiers pour les applications HPC et Windows.                      |
+|                                    | Outposts                                | Exécute des services AWS sur site pour une expérience hybride.                  |
+
+Cette table résume les services utilisés pour le machine learning, le traitement de données, et l'infrastructure cloud sur AWS.
+
+Citations:
+[1] https://pplx-res.cloudinary.com/image/upload/v1724451149/user_uploads/rznieqbws/image.jpg
+[2] https://pplx-res.cloudinary.com/image/upload/v1724451448/user_uploads/bulguntio/image.jpg
+
+
 ---
 # Citations:
 <hr/>
