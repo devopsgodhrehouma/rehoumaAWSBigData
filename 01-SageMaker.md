@@ -73,6 +73,28 @@ Ce diagramme illustre les étapes typiques d'une pipeline de machine learning da
 Ce flux de travail est typique dans les projets de machine learning et peut être automatisé et géré à grande échelle avec Amazon SageMaker Pipelines[1][5].
 
 
+# Table: 
+
+Voici un tableau récapitulatif des services AWS mentionnés dans le diagramme :
+
+| Service                  | Description                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| **AWS Cloud9 IDE**       | Environnement de développement intégré utilisé pour écrire et exécuter du code. |
+| **VPC (Virtual Private Cloud)** | Réseau virtuel dédié pour isoler les ressources AWS.                         |
+| **Public Subnet**        | Sous-réseau public pour héberger des ressources accessibles depuis Internet.   |
+| **Data-source Bucket**   | Bucket S3 où les données sources sont stockées.                              |
+| **AWS Glue Crawler**     | Explore les données et génère des métadonnées.                               |
+| **AWS Glue Table Metadata** | Stocke les métadonnées des tables générées par AWS Glue.                     |
+| **AWS Glue Data Store**  | Stockage des données géré par AWS Glue.                                      |
+| **Query-results Bucket** | Bucket S3 pour stocker les résultats des requêtes.                           |
+| **Athena**               | Service qui permet d'exécuter des requêtes SQL sur des données stockées dans S3. |
+| **QuickSight**           | Outil de visualisation de données d'Amazon.                                  |
+| **CapstoneGlueRole**     | Rôle IAM utilisé par AWS Glue pour accéder aux ressources nécessaires.       |
+| **aws-quicksight-service-role-v0** | Rôle IAM qui permet à QuickSight d'accéder aux ressources AWS.                |
+
+Ces services collaborent pour former une pipeline de données complète, allant de l'ingestion des données à leur analyse et visualisation.
+
+
 ---
 # Citations:
 <hr/>
