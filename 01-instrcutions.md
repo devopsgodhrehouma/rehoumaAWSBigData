@@ -1,6 +1,6 @@
 # rehoumaAWSBigData
 
-# Important
+# 01 - Important
 
 Chers étudiants,
 
@@ -13,7 +13,7 @@ Merci de respecter ces échéances pour assurer le bon déroulement de vos éval
 
 ---
 
-# Tableau récapitulatif des échéances :
+# 02 - Tableau récapitulatif des échéances :
 
 ---
 
@@ -29,7 +29,7 @@ Merci de respecter ces échéances pour assurer le bon déroulement de vos éval
 
 ---
 
-# 1 - Dates de présentation pour les examens mi-session (COURS BIG DATA)
+# 03 - Dates de présentation pour les examens mi-session (COURS BIG DATA)
 
 ---
 
@@ -41,7 +41,8 @@ Merci de respecter ces échéances pour assurer le bon déroulement de vos éval
 | Tony              | Module 4 - Athena                    | 20 septembre         |
 | Cédric            | TO DO                         | 27 septembre         |
 
-### Dates de présentation pour les laboratoires
+# 04 - Dates de présentation pour les laboratoires
+
 | Nom et prénom      | Module pour laboratoire | Date de présentation |
 |-------------------|-------------------------|----------------------|
 | Mustapha          | Module 12                 | 4 octobre            |
@@ -52,7 +53,7 @@ Merci de respecter ces échéances pour assurer le bon déroulement de vos éval
 
 
 ---
-# 2 - Résumé des laboratoires : 
+# 05 - Résumé des laboratoires : 
 ---
 
 
@@ -74,7 +75,7 @@ Merci de respecter ces échéances pour assurer le bon déroulement de vos éval
 | **Projet de Synthèse**                                        | Projet intégrateur couvrant les concepts appris au cours.                                               | Aucun laboratoire spécifié.                                                                       |
 
 ---
-# 3 - Résumé des cours: 
+# 06 - Résumé des cours: 
 ----
 
 
