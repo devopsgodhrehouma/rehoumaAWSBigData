@@ -32,6 +32,47 @@ Amazon SageMaker est un service de machine learning entièrement géré qui perm
 
 En résumé, Amazon SageMaker est un outil puissant pour les professionnels du machine learning, offrant une plateforme intégrée pour développer, entraîner et déployer des modèles tout en optimisant les coûts et en simplifiant les workflows.
 
+# Annexe : 
+
+
+```
+        +--------------+
+        |  Data Input  |
+        +--------------+
+              |
+              v
+        +--------------+
+        | Data Process  |
+        | (Preprocessing)|
+        +--------------+
+              |
+              v
+        +--------------+
+        |   Model Train |
+        +--------------+
+              |
+              v
+        +--------------+
+        | Model Evaluate|
+        +--------------+
+              |
+              v
+        +--------------+
+        |  Model Deploy  |
+        +--------------+
+```
+
+Ce diagramme illustre les étapes typiques d'une pipeline de machine learning dans SageMaker :
+
+1. **Data Input** : Collecte et importation des données nécessaires pour l'entraînement du modèle.
+2. **Data Process (Preprocessing)** : Prétraitement des données, incluant le nettoyage, la normalisation et la transformation des données pour les rendre aptes à l'entraînement.
+3. **Model Train** : Entraînement du modèle de machine learning en utilisant les données prétraitées.
+4. **Model Evaluate** : Évaluation du modèle pour vérifier ses performances et sa précision.
+5. **Model Deploy** : Déploiement du modèle dans un environnement de production pour effectuer des prédictions en temps réel ou par batch.
+
+Ce flux de travail est typique dans les projets de machine learning et peut être automatisé et géré à grande échelle avec Amazon SageMaker Pipelines[1][5].
+
+
 ---
 # Citations:
 <hr/>
