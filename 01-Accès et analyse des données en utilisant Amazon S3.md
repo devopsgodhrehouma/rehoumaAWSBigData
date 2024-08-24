@@ -21,13 +21,6 @@ Dans ce projet, vous apprendrez à manipuler des données dans Amazon S3, y comp
 - Télécharger et compresser un jeu de données dans Amazon S3.
 - Examiner une politique IAM et tester l'accès restreint d'un membre de l'équipe à l'aide d'AWS CLI.
 
-# **Durée**
-
-Ce projet nécessite environ 60 minutes pour être complété.
-
-# **Restrictions des services AWS**
-
-L'accès aux services et actions AWS peut être limité aux besoins de ce projet. Vous pourriez rencontrer des erreurs si vous tentez d'accéder à d'autres services ou d'exécuter des actions non décrites dans ce projet.
 
 # **Scénario**
 
