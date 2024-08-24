@@ -3,6 +3,8 @@
 ----
 
 🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
+🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
+🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
 ----
 *Partie1* 
 
@@ -126,6 +128,8 @@ Vous devez créer l'infrastructure pour héberger ces données afin que les anal
     +------------------------+
 ```
 
+🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
+🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
 🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
 ----
 *Partie2 - Pipeline détaillé du projet Capstone en Data Engineering**
@@ -316,6 +320,8 @@ Vous devez créer l'infrastructure pour héberger ces données afin que les anal
 ```
 
 🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
+🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
+🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
 ----
 *Partie3 - Explication des différents composants**
 
@@ -348,6 +354,8 @@ Vous devez créer l'infrastructure pour héberger ces données afin que les anal
 
 
 
+🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
+🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
 🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
 
 ----
@@ -457,4 +465,113 @@ Dans cette section, nous allons explorer en détail les différents composants d
 Chaque composant de ce pipeline a été choisi pour sa capacité à rendre votre projet plus efficace, sécurisé, et évolutif. En utilisant ces services ensemble, vous créez une infrastructure robuste qui peut traiter de grandes quantités de données, les analyser, et les visualiser de manière intuitive. C'est cette combinaison de technologies qui permet aux analystes de votre organisation de prendre des décisions éclairées basées sur des données précises et bien préparées.
 
 
+
+
+
+
+
+
+
+
+🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
+🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
+🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
+
+----
+*Partie5 - Explication des différents composants du projet Capstone, QUI FAIT QUOI*
+
+----
+
+
+- Pour comprendre comment les données circulent à travers les différents services dans ce projet Capstone, nous allons décrire un **workflow détaillé des données**. Ce workflow vous permettra de visualiser qui (quel service ou outil) contacte qui pour faire quoi à chaque étape.
+
+### **Workflow des données du projet Capstone**
+
+1. **Point d'entrée : Amazon S3**
+   - **Pourquoi ?**  
+     Amazon S3 est votre point d'entrée principal pour stocker les données brutes, comme les fichiers CSV, dans le cloud. Les données sont initialement téléchargées dans S3 afin qu'elles soient accessibles par d'autres services AWS.
+   - **Ce qui se passe :**
+     - **Téléchargement des fichiers CSV :** Vous téléchargez manuellement les fichiers CSV depuis votre ordinateur vers un bucket S3 nommé `data-source-#####`. S3 stocke ces fichiers en toute sécurité.
+     - **Service initiateur :** Vous (l'utilisateur) interagissez directement avec S3 pour le téléchargement initial des fichiers.
+
+2. **Transformation des données : AWS Cloud9 & Conversion en Parquet**
+   - **Pourquoi ?**
+     Vous transformez les fichiers CSV en format Parquet car ce dernier est plus optimisé pour l'analyse de données volumineuses.
+   - **Ce qui se passe :**
+     - **Utilisation de AWS Cloud9 :** Vous utilisez AWS Cloud9 pour exécuter du code Python qui lit les fichiers CSV depuis S3, les convertit en Parquet, puis télécharge les fichiers Parquet dans le même bucket S3 (`data-source-#####`).
+     - **Service initiateur :** Cloud9 est utilisé pour manipuler les fichiers et effectuer la conversion. Il interagit avec S3 pour lire les fichiers CSV et y écrire les fichiers Parquet.
+
+3. **Exploration et Catalogage des données : AWS Glue Crawler**
+   - **Pourquoi ?**
+     Le crawler AWS Glue est utilisé pour explorer les fichiers Parquet dans S3, inférer la structure des données (schéma) et les cataloguer dans une base de données Glue pour faciliter les requêtes futures.
+   - **Ce qui se passe :**
+     - **Exploration des fichiers Parquet :** AWS Glue Crawler est configuré pour parcourir le bucket S3 où sont stockés les fichiers Parquet (`data-source-#####`), il infère automatiquement le schéma des données.
+     - **Catalogage des données :** Une fois que le schéma est inféré, Glue enregistre ces informations dans une base de données Glue nommée `fishdb`, ce qui permet à d'autres services, comme Athena, de facilement interroger les données.
+     - **Service initiateur :** AWS Glue interagit avec S3 pour lire les fichiers Parquet et en extraire les métadonnées (le schéma des données).
+
+4. **Analyse des données : Amazon Athena**
+   - **Pourquoi ?**
+     Amazon Athena est utilisé pour exécuter des requêtes SQL sur les données stockées dans S3, en utilisant les métadonnées créées par AWS Glue.
+   - **Ce qui se passe :**
+     - **Exécution des requêtes SQL :** Vous écrivez des requêtes SQL dans Athena pour extraire, filtrer, et analyser les données cataloguées par AWS Glue. Athena interagit directement avec les fichiers Parquet dans S3 via le schéma stocké dans Glue.
+     - **Service initiateur :** Athena interagit avec S3 pour lire les données, en utilisant les informations de schéma cataloguées dans Glue.
+
+5. **Visualisation des résultats : Amazon QuickSight**
+   - **Pourquoi ?**
+     QuickSight est utilisé pour créer des visualisations interactives à partir des résultats des requêtes Athena.
+   - **Ce qui se passe :**
+     - **Création des visualisations :** QuickSight se connecte à Athena pour récupérer les résultats des requêtes et les transforme en graphiques et tableaux de bord que vous pouvez analyser visuellement.
+     - **Service initiateur :** QuickSight interagit avec Athena pour obtenir les résultats des requêtes SQL, puis les affiche sous forme de visualisations interactives.
+
+### **Résumé du Workflow des données**
+
+1. **Téléchargement des CSV vers S3 (par vous) :**
+   - **S3 stocke les fichiers CSV.**
+
+2. **Transformation des CSV en Parquet via Cloud9 :**
+   - **Cloud9 lit les fichiers CSV depuis S3, les convertit en Parquet, et les remet dans S3.**
+
+3. **Exploration et catalogage des fichiers Parquet via Glue Crawler :**
+   - **Glue Crawler explore les fichiers Parquet dans S3, infère leur schéma, et enregistre ces métadonnées dans une base de données Glue.**
+
+4. **Requêtes SQL sur les fichiers Parquet via Athena :**
+   - **Athena exécute des requêtes SQL sur les données cataloguées, utilisant S3 comme source de données.**
+
+5. **Visualisation des résultats via QuickSight :**
+   - **QuickSight récupère les résultats des requêtes via Athena et les transforme en graphiques.**
+
+### **Flux visuel du workflow**
+
+```
++-----------------------------------------------------------+
+|               Téléchargement des fichiers CSV             |
+|                          (S3)                             |
++-----------------------------------------------------------+
+                          |
+                          v
++-----------------------------------------------------------+
+|    Transformation des CSV en Parquet via AWS Cloud9        |
+|           (Interaction avec S3 pour lire et écrire)       |
++-----------------------------------------------------------+
+                          |
+                          v
++-----------------------------------------------------------+
+|    Exploration et Catalogage des fichiers Parquet          |
+|       via AWS Glue Crawler (Interaction avec S3)           |
++-----------------------------------------------------------+
+                          |
+                          v
++-----------------------------------------------------------+
+|    Requêtes SQL sur les données cataloguées via Athena     |
+|            (Interaction avec S3 et AWS Glue)              |
++-----------------------------------------------------------+
+                          |
+                          v
++-----------------------------------------------------------+
+|  Visualisation des résultats via Amazon QuickSight         |
+|        (Interaction avec Athena pour les données)         |
++-----------------------------------------------------------+
+```
+
+Ce workflow montre clairement comment les données circulent à travers les différents services AWS et comment chaque composant joue un rôle essentiel pour permettre la transformation, l'analyse, et la visualisation des données.
 
