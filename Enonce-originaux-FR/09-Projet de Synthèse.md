@@ -1,577 +1,384 @@
-----
-# **Projet Capstone en Data Engineering**
-----
+# Projet de Clôture en Ingénierie des Données Académie
 
-🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
-🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
-🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
-----
-*Partie1* 
+#### Vue d'ensemble et objectifs
 
-----
+Tout au long de ce cours, vous avez réalisé des laboratoires pratiques où vous avez utilisé les fonctionnalités de différents services AWS pour vous entraîner à ingérer de grands ensembles de données, à les transformer et à en extraire des informations.
 
-# **Aperçu et objectifs**
+Dans ce projet de clôture, vous êtes mis au défi de construire une solution qui utilise de nombreux services AWS qui vous sont familiers, sans recevoir de directives pas à pas. Certaines sections de l'exercice sont conçues pour être difficiles.
 
-Au cours de ce projet Capstone, vous allez créer une solution utilisant plusieurs services AWS que vous connaissez, sans recevoir des instructions détaillées étape par étape. Certaines sections de cet exercice sont conçues pour être difficiles. Ce projet vous mettra au défi de :
+Ce projet de clôture vous mettra au défi de faire ce qui suit :
 
-- Lancer et configurer un environnement de développement intégré (IDE) AWS Cloud9.
+- Lancer et configurer une instance d’environnement de développement intégré (IDE) AWS Cloud9.
 - Transformer des fichiers de données au format CSV en format Apache Parquet et les télécharger sur Amazon S3.
-- Créer un crawler AWS Glue pour déduire la structure des données.
+- Créer un robot d'exploration AWS Glue pour inférer la structure des données.
 - Utiliser Amazon Athena pour interroger les données.
 - Créer une vue Athena.
 - Utiliser Amazon QuickSight pour visualiser les données.
 
-# **Durée et suivi de votre budget**
-
-Ce projet devrait nécessiter environ 4 heures pour être complété. L'environnement est persistant : lorsque le minuteur de la session atteint 0:00, la session se termine, mais toutes les données et ressources créées dans le compte AWS sont conservées. Vous pouvez relancer la session à tout moment avant la fin du temps imparti en choisissant "Start Lab".
-
-# **Accès aux services AWS**
-
-L'accès aux services et actions AWS peut être restreint aux besoins de ce projet. Vous pourriez rencontrer des erreurs si vous tentez d'accéder à d'autres services ou d'exécuter des actions non décrites dans ce projet.
-
-# **Le jeu de données**
-
-Le site Sea Around Us propose un ensemble de données avec des informations historiques détaillées sur les pêcheries mondiales, de 1950 à 2018. Les données incluent les captures de poissons par pays, les tonnes pêchées, et la valeur de ces captures en dollars américains de 2010.
-
-# **Scénario**
-
-Vous devez créer l'infrastructure pour héberger ces données afin que les analystes puissent créer des rapports sur l'impact de la pêche en haute mer. Vous testerez cette infrastructure en utilisant trois fichiers de données du site Sea Around Us.
-
-# **Accès à la console de gestion AWS**
+#### Durée et suivi de votre budget
 
-1. **Lancer l'environnement de lab** :
-   - Cliquez sur "Start Lab".
-   - Attendez que l'icône en haut à gauche devienne verte avant de continuer.
+Ce projet est estimé à environ 4 heures de travail.
 
-2. **Connexion à la console de gestion AWS** :
-   - Cliquez sur le lien AWS en haut à gauche pour ouvrir la console dans un nouvel onglet.
+Cet environnement est à long terme. Lorsque le minuteur de la session atteint 0:00, la session se termine, mais toutes les données et ressources que vous avez créées dans le compte AWS seront conservées. Si vous lancez une nouvelle session ultérieurement (par exemple, le jour suivant), vous constaterez que votre travail est toujours présent dans l'environnement du laboratoire. De plus, à tout moment avant que le minuteur de la session n'atteigne 0:00, vous pouvez choisir "Start Lab" à nouveau pour prolonger le temps de la session.
 
-# **Tâche 1 : Configuration de l'environnement de développement**
+**Important :** Surveillez votre budget de laboratoire dans l'interface du laboratoire. Lorsque vous avez une session de laboratoire active, les informations sur le budget restant s'affichent en haut de cet écran. Ces données proviennent d'AWS Budgets, qui se met généralement à jour toutes les 8 à 12 heures. Par conséquent, le budget restant que vous voyez peut ne pas refléter votre activité de compte la plus récente. Si vous dépassez votre budget de laboratoire, votre compte de laboratoire sera désactivé et tout progrès et toutes les ressources seront perdus. Il est donc important de gérer vos dépenses.
 
-1. **Observer les détails du rôle IAM CapstoneGlueRole**.
-2. **Créer un environnement AWS Cloud9** :
-   - Nommer l'environnement `CapstoneIDE`.
-   - Créer une nouvelle instance EC2 t2.micro dans le VPC Capstone, sous-réseau public Capstone.
-3. **Créer deux buckets S3** :
-   - Dans la région us-east-1.
-   - Nommer les buckets `data-source-#####` et `query-results-#####` où ##### est un numéro aléatoire.
-
-4. **Télécharger les fichiers source .csv** dans l'IDE Cloud9 en utilisant les commandes `wget`.
-
-5. **Observer les données** du fichier `SAU-GLOBAL-1-v48-0.csv` avec la commande `head -6 SAU-GLOBAL-1-v48-0.csv`.
-
-6. **Convertir le fichier CSV en format Parquet** en utilisant pandas et pyarrow.
+#### Restrictions des services AWS
 
-7. **Télécharger le fichier Parquet dans le bucket S3 data-source**.
+Dans cet environnement de laboratoire, l'accès aux services et aux actions des services AWS peut être limité à ceux nécessaires pour accomplir les instructions du laboratoire. Vous pourriez rencontrer des erreurs si vous essayez d'accéder à d'autres services ou d'effectuer des actions au-delà de celles décrites dans ce laboratoire.
 
-# **Tâche 2 : Utilisation d’un crawler AWS Glue et requêtes avec Athena**
+#### L'ensemble de données
 
-1. **Configurer un crawler AWS Glue** :
-   - Créer une base de données `fishdb` et un crawler `fishcrawler`.
-   - Configurer le crawler pour utiliser le rôle IAM `CapstoneGlueRole` et explorer le bucket `data-source`.
-
-2. **Exécuter des requêtes SQL avec Athena** sur les données découvertes.
-
-# **Tâche 3 : Transformation et ajout de nouveaux fichiers**
-
-1. **Analyser la structure du fichier SAU-EEZ-242-v48-0.csv**.
-2. **Modifier les noms de colonnes** pour les aligner avec les autres fichiers et convertir en format Parquet.
-3. **Télécharger le fichier transformé dans le bucket S3**.
-4. **Mettre à jour la table dans AWS Glue** en réexécutant le crawler.
-
-# **Tâche 4 : Visualisation des résultats dans QuickSight**
-
-1. **Créer un compte QuickSight** et configurer l'accès à Athena.
-2. **Créer un jeu de données QuickSight** basé sur la vue `MackerelsCatch`.
-3. **Créer un graphique dans QuickSight** représentant les tonnes de maquereaux pêchées par année et par pays.
-
-# **Diagramme ASCII du Pipeline**
-
-```
-    +--------------------+
-    | Lancer AWS Cloud9  |
-    +---------+----------+
-              |
-              v
-    +--------------------+
-    | Créer S3 Buckets   |
-    +---------+----------+
-              |
-              v
-    +---------------------------+
-    | Télécharger CSV dans Cloud9|
-    +---------+------------------+
-              |
-              v
-    +-----------------------------+
-    | Convertir CSV en Parquet    |
-    +---------+-------------------+
-              |
-              v
-    +---------------------------+
-    | Télécharger Parquet sur S3 |
-    +---------+------------------+
-              |
-              v
-    +------------------------+
-    | Configurer Glue Crawler|
-    +---------+--------------+
-              |
-              v
-    +-----------------------+
-    | Requêtes avec Athena  |
-    +---------+-------------+
-              |
-              v
-    +------------------------+
-    | Visualiser dans QuickSight |
-    +------------------------+
-```
-
-🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
-🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
-🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
-----
-*Partie2 - Pipeline détaillé du projet Capstone en Data Engineering**
+Le site Sea Around Us propose un ensemble de données avec des informations historiques détaillées sur les pêcheries dans toutes les parties de chaque océan à l'échelle mondiale. Les données incluent des informations sur les captures de pêcheries annuelles de 1950 à 2018.
 
-----
+Les données peuvent être téléchargées au format CSV à partir du site Sea Around Us. L'ensemble de données comprend des colonnes d'informations pour chaque année, y compris les pays qui ont capturé quels types de poissons dans quelles zones. Les données indiquent également combien de tonnes de poissons ont été capturées et quelle était la valeur de la capture, mesurée en dollars américains de 2010.
 
+Pour comprendre les données, il sera utile de comprendre ce que l'on entend par zones de haute mer et zones économiques exclusives (ZEE) :
 
+- **Haute mer :** Zones de l'océan situées à au moins 200 milles marins de la côte d'un pays. Les ressources, y compris les poissons, dans ces zones ne sont généralement pas attribuées à un seul pays.
+- **Zones Économiques Exclusives (ZEE) :** Zones situées à moins de 200 milles marins de la côte d'un pays. Chaque pays revendique généralement un accès exclusif aux ressources dans ces zones, y compris les poissons qui s'y trouvent.
 
-# **1. Lancer et configurer l'environnement de développement**
-
-**Objectif :** Créer un environnement de développement intégré (IDE) sur AWS Cloud9 pour travailler sur ce projet.
+Les données de Sea Around Us sont (sauf indication contraire) sous licence Creative Commons Attribution Non-Commercial 4.0 International License (https://creativecommons.org/licenses/by-nc/4.0/). Les avis concernant les droits d'auteur (© Université de la Colombie-Britannique), la licence et la clause de non-responsabilité sont disponibles à l'adresse http://www.seaaroundus.org/terms-and-conditions/.
 
-1. **Créer un environnement Cloud9 :**
-   - **Pourquoi ?** AWS Cloud9 est un IDE basé sur le cloud qui vous permet d'écrire, d'exécuter et de déboguer votre code à partir de votre navigateur.
-   - **Comment faire ?**
-     - Allez sur la console AWS, puis recherchez "Cloud9".
-     - Cliquez sur "Create environment".
-     - Donnez un nom à votre environnement, par exemple `CapstoneIDE`.
-     - Sélectionnez "Create a new EC2 instance" et choisissez une instance `t2.micro`, qui est gratuite dans le cadre de l'offre gratuite d'AWS.
-     - Assurez-vous que l'instance est déployée dans le VPC Capstone et dans le sous-réseau public Capstone.
-     - Gardez toutes les autres options par défaut et cliquez sur "Create environment".
+#### Scénario
 
-2. **Vérifier les rôles IAM :**
-   - **Pourquoi ?** Le rôle IAM `CapstoneGlueRole` permet à différents services AWS de communiquer en toute sécurité et d'accéder aux ressources nécessaires.
-   - **Comment faire ?**
-     - Dans la console AWS, recherchez "IAM".
-     - Allez dans "Roles" et recherchez `CapstoneGlueRole`.
-     - Vérifiez les permissions associées à ce rôle pour vous assurer qu'il peut accéder aux ressources AWS nécessaires.
-
-# **2. Créer et configurer les buckets S3**
+Vous avez pour mission de créer l'infrastructure pour héberger des données sur la pêche afin que les analystes de données de votre organisation puissent créer des rapports sur l'impact de la pêche en haute mer. Vous avez décidé de construire l'infrastructure dans votre compte AWS et de la tester en utilisant trois fichiers de données provenant de l'ensemble de données Sea Around Us.
 
-**Objectif :** Stocker les fichiers de données dans Amazon S3, un service de stockage d'objets sécurisé et évolutif.
+Dans ce projet de clôture, vous travaillerez avec trois fichiers de données du site Sea Around Us :
 
-1. **Créer deux buckets S3 :**
-   - **Pourquoi ?** Les buckets S3 vous permettent de stocker et d'organiser les fichiers de données utilisés dans ce projet.
-   - **Comment faire ?**
-     - Dans la console AWS, recherchez "S3".
-     - Cliquez sur "Create bucket".
-     - Nommez le premier bucket `data-source-#####` (remplacez `#####` par un numéro aléatoire).
-     - Nommez le deuxième bucket `query-results-#####`.
-     - Sélectionnez la région `us-east-1` pour les deux buckets.
-     - Gardez les paramètres par défaut et cliquez sur "Create bucket".
+- Le premier fichier contient des données provenant de toutes les zones de haute mer.
+- Le deuxième fichier contient des données provenant d'une seule zone de haute mer dans le Pacifique, connue sous le nom de Pacific, Western Central, qui n'est pas loin des Fidji et de nombreux autres pays.
+- Le troisième fichier contient des données provenant de la ZEE d'un seul pays (les Fidji), proche de la zone de haute mer Pacific, Western Central.
 
-# **3. Télécharger les fichiers de données CSV**
-
-**Objectif :** Obtenir les fichiers de données CSV nécessaires au projet et les examiner.
+En travaillant avec cette variété de fichiers de données, vous pourrez tester si la solution que vous construisez peut prendre en charge un ensemble de données beaucoup plus grand.
 
-1. **Télécharger les fichiers CSV :**
-   - **Pourquoi ?** Ces fichiers contiennent des données historiques sur la pêche, que vous allez transformer et analyser.
-   - **Comment faire ?**
-     - Ouvrez le terminal dans votre environnement Cloud9.
-     - Exécutez les commandes suivantes pour télécharger les fichiers CSV :
+Lorsque vous commencez le projet de clôture, l'environnement contiendra les ressources montrées dans le diagramme suivant.
 
-       ```bash
-       wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACDENG-1-91570/lab-capstone/s3/SAU-GLOBAL-1-v48-0.csv
-       wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACDENG-1-91570/lab-capstone/s3/SAU-HighSeas-71-v48-0.csv
-       wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACDENG-1-91570/lab-capstone/s3/SAU-EEZ-242-v48-0.csv
-       ```
-
-2. **Examiner les données :**
-   - **Pourquoi ?** Comprendre la structure des fichiers CSV est essentiel pour les prochaines étapes de transformation.
-   - **Comment faire ?**
-     - Pour afficher les premières lignes d'un fichier, utilisez la commande `head` :
-
-       ```bash
-       head -6 SAU-GLOBAL-1-v48-0.csv
-       ```
-
-     - Cette commande affiche les en-têtes de colonnes et les premières lignes de données, vous donnant un aperçu de ce que contient le fichier.
-
-# **4. Conversion des fichiers CSV en format Parquet**
-
-**Objectif :** Convertir les fichiers CSV en format Parquet, un format de stockage optimisé pour les gros volumes de données.
-
-1. **Installer les outils nécessaires :**
-   - **Pourquoi ?** Vous aurez besoin de bibliothèques Python spécifiques pour effectuer la conversion.
-   - **Comment faire ?**
-     - Dans le terminal de Cloud9, installez les bibliothèques avec la commande suivante :
-
-       ```bash
-       sudo pip3 install pandas pyarrow fastparquet
-       ```
-
-2. **Convertir le fichier CSV en Parquet :**
-   - **Pourquoi ?** Le format Parquet est plus efficace pour le stockage et la requête de données volumineuses.
-   - **Comment faire ?**
-     - Démarrez une session Python interactive dans le terminal :
-
-       ```bash
-       python
-       ```
-
-     - Utilisez le code suivant pour lire le fichier CSV et le convertir en Parquet :
-
-       ```python
-       import pandas as pd
-       df = pd.read_csv('SAU-GLOBAL-1-v48-0.csv')
-       df.to_parquet('SAU-GLOBAL-1-v48-0.parquet')
-       exit()
-       ```
-
-# **5. Téléchargement des fichiers Parquet sur S3**
-
-**Objectif :** Stocker les fichiers convertis dans le bucket S3.
-
-1. **Télécharger les fichiers Parquet sur S3 :**
-   - **Pourquoi ?** Les fichiers Parquet doivent être disponibles dans S3 pour être analysés avec les autres services AWS.
-   - **Comment faire ?**
-     - Utilisez la commande AWS CLI suivante dans le terminal Cloud9 pour télécharger le fichier Parquet :
-
-       ```bash
-       aws s3 cp SAU-GLOBAL-1-v48-0.parquet s3://data-source-#####/
-       ```
-
-# **6. Utilisation d'un crawler AWS Glue et requêtes avec Athena**
-
-**Objectif :** Configurer un crawler AWS Glue pour explorer les données et utiliser Amazon Athena pour interroger les données.
-
-1. **Configurer un crawler AWS Glue :**
-   - **Pourquoi ?** AWS Glue vous permet de cataloguer et préparer vos données pour l'analyse.
-   - **Comment faire ?**
-     - Créez une base de données `fishdb` et un crawler `fishcrawler` dans AWS Glue.
-     - Configurez le crawler pour utiliser le rôle IAM `CapstoneGlueRole` et explorer le bucket `data-source`.
-
-2. **Exécuter des requêtes avec Athena :**
-   - **Pourquoi ?** Athena vous permet de faire des requêtes SQL directement sur vos données stockées dans S3.
-   - **Comment faire ?**
-     - Accédez à Athena via la console AWS, configurez l'éditeur de requêtes pour stocker les résultats dans votre bucket `query-results`.
-     - Exécutez une requête pour vérifier que vos données sont correctement cataloguées.
-
-# **7. Visualisation des résultats avec Amazon QuickSight**
-
-**Objectif :** Créer des visualisations pour analyser les résultats de vos requêtes.
-
-1. **Créer un compte QuickSight :**
-   - **Pourquoi ?** QuickSight est un outil de visualisation de données qui vous permet de créer des rapports interactifs.
-   - **Comment faire ?**
-     - Allez sur la console QuickSight, inscrivez-vous et configurez l'accès à Athena.
-
-2. **Créer des visualisations :**
-   - **Pourquoi ?** Pour transformer les données en graphiques et rapports compréhensibles.
-   - **Comment faire ?**
-     - Créez un nouveau jeu de données à partir de la vue `MackerelsCatch`.
-     - Créez un graphique représentant les tonnes de maquereaux pêchées par année et par pays.
-
-# **Diagramme du Pipeline**
-
-
-```
-      +-------------------------------------+
-      | 1. Lancer AWS Cloud9 IDE            |
-      +------------------+------------------+
-                         |
-                         v
-      +-------------------------------------+
-      | 2. Créer S3 Buckets                 |
-      +------------------+------------------+
-                         |
-                         v
-      +-------------------------------------+
-      | 3. Télécharger fichiers CSV         |
-      +------------------+------------------+
-                         |
-                         v
-      +-------------------------------------+
-      | 4. Conversion CSV -> Parquet        |
-      +------------------+------------------+
-                         |
-                         v
-      +-------------------------------------+
-      | 5. Télécharger Parquet sur S3       |
-      +------------------+------------------+
-                         |
-                         v
-      +-------------------------------------+
-      | 6. Configurer AWS Glue Crawler      |
-      +------------------+------------------+
-                         |
-                         v
-      +-------------------------------------+
-      | 7. Requêtes SQL avec Athena         |
-      +------------------+------------------+
-                         |
-                         v
-      +-------------------------------------+
-      | 8. Visualisation avec QuickSight    |
-      +-------------------------------------+
-```
-
-🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
-🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
-🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
-----
-*Partie3 - Explication des différents composants**
+*Architecture au début du projet de clôture.*
 
-----
+À la fin du projet de clôture, vous aurez créé une architecture similaire à celle montrée dans le diagramme suivant.
 
+*Architecture à la fin du projet de clôture.*
 
-| **Service/Outil**        | **Rôle**                                                         | **Importance**                                                                                                                                                       |
-|--------------------------|------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **AWS Cloud9 IDE**       | Environnement de développement en ligne.                         | Fournit un IDE complet et accessible depuis le navigateur, éliminant le besoin d'installation locale, avec une intégration directe avec les services AWS.            |
-| **Amazon S3**            | Service de stockage d'objets dans le cloud.                      | Stocke les fichiers de données (CSV, Parquet) de manière sécurisée et évolutive. Permet un accès facile aux données par d'autres services AWS.                       |
-| **Fichiers CSV**         | Format de stockage des données tabulaires.                       | Facile à manipuler et à transférer entre systèmes, mais inefficace pour le stockage de grandes quantités de données.                                                 |
-| **Format Parquet**       | Format de fichier columnar optimisé pour l'analyse de données.   | Offre une meilleure performance de stockage et de requête pour les grands ensembles de données, réduisant la taille des fichiers et améliorant la vitesse des requêtes. |
-| **AWS Glue**             | Service d'intégration et de préparation des données.             | Automatise la découverte, la transformation, et le catalogage des données, facilitant ainsi l'analyse et l'intégration des données avec d'autres services AWS.       |
-| **AWS Glue Crawler**     | Composant d'AWS Glue pour explorer et cataloguer les données.    | Infère automatiquement le schéma des données et les organise dans un catalogue central, simplifiant l'accès aux données pour l'analyse avec Athena.                 |
-| **Amazon Athena**        | Service de requêtes SQL sans serveur pour analyser les données.  | Permet d'exécuter des requêtes SQL directement sur des données stockées dans S3 sans besoin de configuration de base de données, offrant une solution rapide et flexible pour l'analyse de données. |
-| **Amazon QuickSight**    | Outil de visualisation de données.                               | Crée des rapports et tableaux de bord interactifs pour interpréter et partager les résultats des analyses de données de manière visuelle et intuitive.              |
-| **Amazon IAM**           | Gestion des identités et des accès.                              | Assure la sécurité en contrôlant qui peut accéder aux services et ressources AWS, permettant une gestion fine des permissions pour protéger l'environnement AWS.     |
+#### Accéder à la console de gestion AWS
 
-### **Résumé de l'Importance**
+1. En haut de ces instructions, choisissez **Start Lab**.
+   - La session de laboratoire commence.
+   - Un minuteur s'affiche en haut de la page et montre le temps restant dans la session.
+   - **Conseil :** Pour rafraîchir la durée de la session à tout moment, choisissez **Start Lab** à nouveau avant que le minuteur n'atteigne 0:00.
+   - Avant de continuer, attendez que l'icône de cercle à droite du lien **AWS** dans le coin supérieur gauche devienne verte.
+2. Pour vous connecter à la console de gestion AWS, choisissez le lien **AWS** dans le coin supérieur gauche.
+   - Un nouvel onglet de navigateur s'ouvre et vous connecte à la console.
+   - **Conseil :** Si un nouvel onglet ne s'ouvre pas, une bannière ou une icône se trouve généralement en haut de votre navigateur avec le message que votre navigateur empêche le site d'ouvrir des fenêtres pop-up. Choisissez la bannière ou l'icône, puis choisissez **Autoriser les pop-ups**.
 
-- **AWS Cloud9 IDE** : Essentiel pour le développement rapide et l'intégration directe avec AWS.
-- **Amazon S3** : Fondamental pour le stockage sécurisé et centralisé des données.
-- **Fichiers CSV** : Utile pour la portabilité des données, mais limité en efficacité pour de grandes quantités de données.
-- **Format Parquet** : Crucial pour l'optimisation du stockage et de l'analyse des données volumineuses.
-- **AWS Glue** : Clé pour la préparation et le catalogage automatisés des données.
-- **AWS Glue Crawler** : Vital pour découvrir et organiser les données automatiquement.
-- **Amazon Athena** : Indispensable pour les analyses SQL rapides sans infrastructure supplémentaire.
-- **Amazon QuickSight** : Important pour transformer les données en visualisations compréhensibles.
-- **Amazon IAM** : Crucial pour assurer la sécurité et la gestion des accès dans AWS.
+#### Tâche 1 : Configurer l'environnement de développement
 
+Dans cette première partie du projet de clôture, vous configurerez votre environnement de développement.
 
+1. Observez les détails du rôle AWS Identity and Access Management (IAM) **CapstoneGlueRole** qui a été créé pour vous.
+2. Créez un environnement AWS Cloud9 avec les paramètres suivants :
+   - Nommez l'environnement **CapstoneIDE**.
+   - Créez une nouvelle instance EC2 pour l'environnement et utilisez une instance t2.micro.
+   - Déployez l'instance pour prendre en charge les connexions SSH au VPC Capstone, dans le sous-réseau public Capstone.
+   - Conservez tous les autres paramètres par défaut.
+3. Créez deux buckets S3 avec les paramètres suivants :
+   - Créez les buckets dans la région us-east-1.
+   - Nommez le premier bucket **data-source-#####** où ##### est un nombre aléatoire.
+   - Nommez le deuxième bucket **query-results-#####** où ##### est également un nombre aléatoire.
+   - Conservez tous les autres paramètres par défaut.
 
-🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
-🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
-🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
+4. Pour télécharger les trois fichiers source .csv, exécutez les commandes suivantes dans le terminal de votre IDE AWS Cloud9 :
+   ```bash
+   wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACDENG-1-91570/lab-capstone/s3/SAU-GLOBAL-1-v48-0.csv
+   wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACDENG-1-91570/lab-capstone/s3/SAU-HighSeas-71-v48-0.csv
+   wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACDENG-1-91570/lab-capstone/s3/SAU-EEZ-242-v48-0.csv
+   ```
+5. Pour observer la ligne d'en-tête des colonnes et les cinq premières lignes de données dans le fichier SAU-GLOBAL-1-v48-0.csv, exécutez la commande suivante :
+   ```bash
+   head -6 SAU-GLOBAL-1-v48-0.csv
+   ```
+   **Analyse :** Entre autres détails, chaque ligne de données de cet ensemble comprend :
+   - L'année de la pêche
+   - Le pays (fishing_entity) qui a pêché
+   - Les tonnes de poissons capturées cette année-là par ce pays
+   - La valeur en dollars américains de 2010 (landed_value) des poissons capt
 
-----
-*Partie4 - Explication des différents composants du projet Capstone, QUI FAIT QUOI*
+urés cette année-là par ce pays
 
-----
+   **Remarque :**
+   - Cet ensemble de données contient 561 675 lignes.
+   - **Conseil :** Pour confirmer cela, exécutez `wc -l <nom_du_fichier>`.
 
-### **Partie 3 : Explication des différents composants du projet Capstone**
+6. Convertissez le fichier SAU-GLOBAL-1-v48-0.csv en format Parquet.
+   - Tout d'abord, vous devez installer quelques outils sur votre IDE AWS Cloud9. Exécutez la commande suivante :
+   ```bash
+   sudo pip3 install pandas pyarrow fastparquet
+   ```
+   - Ensuite, pour convertir le fichier en format Parquet, exécutez le code suivant :
+   ```python
+   # Démarrer l'interpréteur Python interactif 
+   python
+   
+   # Utiliser pandas pour convertir le fichier en format parquet
+   import pandas as pd
+   df = pd.read_csv('SAU-GLOBAL-1-v48-0.csv')
+   df.to_parquet('SAU-GLOBAL-1-v48-0.parquet')
+   exit()
+   ```
+   **Remarque :** Pandas est un outil utile pour travailler avec des fichiers de données. Pour plus d'informations, consultez le site web de pandas.
+7. Pour télécharger le fichier SAU-GLOBAL-1-v48-0.parquet vers le bucket data-source, utilisez une commande AWS CLI dans votre terminal AWS Cloud9.
 
-Dans cette section, nous allons explorer en détail les différents composants du pipeline que vous avez mis en place. Nous allons expliquer à quoi sert chaque composant, quand l'utiliser, et ce qu'il fait concrètement. Cela vous aidera à mieux comprendre les technologies que vous utilisez et comment elles fonctionnent ensemble pour accomplir les tâches requises.
+#### Tâche 2 : Utiliser un robot d'exploration AWS Glue et interroger plusieurs fichiers avec Athena
 
----
+La requête que vous avez exécutée dans la tâche précédente fonctionne bien pour un seul fichier de données. Cependant, que faire si vous devez interroger un ensemble de données plus large composé de plusieurs fichiers ?
 
-### **1. AWS Cloud9 IDE**
+Dans cette deuxième partie du projet de clôture, vous interrogez des données stockées dans plusieurs fichiers. Pour ce faire, vous configurez un robot d'exploration AWS Glue pour découvrir la structure des données, puis utilisez Athena pour interroger les données.
 
-**À quoi ça sert ?**
-- AWS Cloud9 est un environnement de développement intégré (IDE) en ligne qui vous permet d'écrire, d'exécuter, et de déboguer du code directement depuis votre navigateur. 
+1. Pour observer la ligne d'en-tête des colonnes et les premières lignes de données du fichier SAU-HighSeas-71-v48-0.csv, utilisez la commande `head`.
+   - Rappelez-vous que vous avez déjà téléchargé le fichier sur votre IDE AWS Cloud9. 
+   - Le fichier contient les mêmes colonnes que le fichier SAU-GLOBAL-1-v48-0.csv, mais il comporte des colonnes supplémentaires. Le tableau suivant montre les colonnes contenues dans chaque fichier.
 
-**Quand l'utiliser ?**
-- Vous l'utilisez lorsque vous avez besoin d'un environnement de développement rapide et facile à configurer, sans avoir à installer des logiciels sur votre ordinateur local. 
+**Analyse :**
+- Comme l'ensemble de données SAU-GLOBAL-1-v48-0 que vous avez déjà téléchargé sur Amazon S3 et interrogé, l'ensemble de données SAU-HighSeas-71-v48-0 décrit également les captures de poissons en haute mer. Cependant, l'ensemble de données HighSeas comprend uniquement des données provenant d'une seule zone de haute mer, connue sous le nom de Pacific, Western Central.
 
-**Ça fait quoi ?**
-- Cloud9 offre un éditeur de code, un terminal, et des outils de débogage dans une seule interface. Il est également intégré avec AWS, ce qui facilite l'accès aux services AWS directement depuis l'IDE.
+   - Parmi les colonnes supplémentaires de l'ensemble de données HighSeas, deux sont particulièrement intéressantes :
+     - La colonne `area_name` contient la valeur "Pacific, Western Central" dans chaque ligne.
+     - La colonne `common_name` contient des valeurs qui décrivent certains types de poissons (par exemple, "Mackerels, tunas, bonitos").
 
----
+2. Convertissez le fichier SAU-HighSeas-71-v48-0.csv en format Parquet et téléchargez-le dans le bucket data-source.
 
-### **2. Amazon S3 (Simple Storage Service)**
+3. Créez une base de données AWS Glue et un robot d'exploration AWS Glue avec les paramètres suivants :
+   - Nommez la base de données **fishdb**.
+   - Nommez le robot d'exploration **fishcrawler**.
+   - Configurez le robot pour utiliser le rôle IAM **CapstoneGlueRole** pour explorer le contenu du bucket S3 data-source.
+   - Exportez les résultats du robot d'exploration vers la base de données fishdb.
+   - Réglez la fréquence du robot sur **À la demande**.
 
-**À quoi ça sert ?**
-- Amazon S3 est un service de stockage d'objets dans le cloud qui vous permet de stocker et de récupérer n'importe quelle quantité de données à tout moment, de n'importe où.
+4. Exécutez le robot pour créer une table contenant des métadonnées dans la base de données AWS Glue.
+   - Vérifiez que la table attendue est créée.
 
-**Quand l'utiliser ?**
-- Vous l'utilisez pour stocker des fichiers tels que des jeux de données, des fichiers Parquet, et d'autres ressources nécessaires à votre projet. C'est particulièrement utile pour stocker des fichiers de grande taille ou pour partager des fichiers entre différents services AWS.
+5. Pour confirmer que la table a correctement catégorisé les données, utilisez Athena pour exécuter des requêtes SQL sur chaque colonne de la nouvelle table.
+   - **Important :** Avant d'exécuter la première requête dans Athena, configurez l'éditeur de requêtes Athena pour exporter les données vers le bucket query-results.
+   - **Exemple de requête :**
+   ```sql
+   SELECT DISTINCT area_name FROM fishdb.data_source_xxxxx;
+   ```
+   **Remarque :** La requête d'exemple renvoie deux résultats. Pour cette colonne, chaque ligne de l'ensemble de données contient soit la valeur "Pacific, Western Central" (pour les lignes extraites de SAU-HighSeas-71-v48-0.parquet), soit une valeur nulle (pour les lignes extraites de SAU-GLOBAL-1-v48-0.parquet). 
 
-**Ça fait quoi ?**
-- S3 vous permet de créer des "buckets" (des conteneurs de stockage) où vous pouvez uploader, organiser, et gérer vos fichiers. Il est hautement disponible, sécurisé, et évolutif, ce qui en fait un choix idéal pour le stockage de données dans le cloud.
+6. Maintenant que votre table de données est définie, exécutez des requêtes pour confirmer qu'elle fournit des résultats utiles.
+   - Pour trouver la valeur en dollars US de tous les poissons capturés par le pays Fidji dans la zone de haute mer Pacific, Western Central depuis 2001, organisés par année, utilisez la requête suivante (assurez-vous de remplacer `<FMI_1>` et `<FMI_2>` par les valeurs appropriées) :
+   ```sql
+   SELECT year, fishing_entity AS Country, CAST(CAST(SUM(landed_value) AS DOUBLE) AS DECIMAL(38,2)) AS ValuePacificWCSeasCatch
+   FROM <FMI_1>
+   WHERE area_name LIKE '%Pacific%' and fishing_entity='Fiji' AND year > <FMI_2>
+   GROUP BY year, fishing_entity
+   ORDER By year
+   ```
+   **Remarque :** La partie `CAST(CAST(sum(landed_value) AS DOUBLE) AS DECIMAL(38,2))` de la requête garantit que le format des données retournées depuis la colonne `landed_value` s'affiche dans un format facile à lire (dollars et centimes) au lieu du format scientifique.
+
+   - **Défi :** Trouvez la valeur en dollars US de tous les poissons capturés par le pays Fidji dans toutes les zones de haute mer depuis 2001, organisés par année. Dans vos résultats, nommez la colonne de valeur en dollars US **ValueAllHighSeasCatch**.
+
+   **Conseils utiles pour le défi :**
+   - Votre clause WHERE devrait inclure deux mots-clés AND.
+   - Pour retourner les lignes qui ne contiennent pas d'entrée pour une colonne particulière, utilisez IS NULL.
 
----
-
-### **3. CSV (Comma-Separated Values) et Parquet**
-
-**À quoi ça sert ?**
-- Les fichiers CSV sont un format de fichier simple utilisé pour stocker des données tabulaires sous forme de texte, où chaque ligne représente un enregistrement et chaque colonne est séparée par une virgule. Parquet est un format de fichier optimisé pour le stockage de données volumineuses.
-
-**Quand l'utiliser ?**
-- Les fichiers CSV sont utilisés pour la portabilité des données entre différents systèmes et outils, car ils sont largement supportés. Le format Parquet est utilisé lorsque vous avez besoin d'un stockage plus efficace et performant pour de grandes quantités de données.
-
-**Ça fait quoi ?**
-- Convertir des fichiers CSV en Parquet permet de réduire la taille des fichiers et d'améliorer les performances des requêtes sur ces données. Parquet est un format columnar, ce qui signifie qu'il stocke les données par colonne plutôt que par ligne, ce qui est plus efficace pour les requêtes analytiques.
-
----
-
-### **4. AWS Glue**
-
-**À quoi ça sert ?**
-- AWS Glue est un service d'intégration de données qui facilite la préparation des données pour l'analyse. Il inclut des fonctionnalités pour découvrir, transformer, nettoyer, enrichir, et cataloguer les données.
-
-**Quand l'utiliser ?**
-- Vous utilisez AWS Glue lorsque vous avez besoin de préparer et de transformer des données stockées dans des sources multiples avant de les analyser ou de les visualiser. C'est également utile pour automatiser l'exploration et le catalogage des données.
-
-**Ça fait quoi ?**
-- AWS Glue utilise des "crawlers" pour explorer vos données, inférer leur schéma, et les organiser dans un catalogue central. Cela vous permet de facilement interroger vos données avec d'autres services comme Amazon Athena.
-
----
-
-### **5. Amazon Athena**
-
-**À quoi ça sert ?**
-- Amazon Athena est un service de requêtes SQL sans serveur qui vous permet d'analyser vos données directement dans S3 en utilisant des commandes SQL.
-
-**Quand l'utiliser ?**
-- Vous l'utilisez pour exécuter des requêtes SQL sur des données stockées dans S3 sans avoir besoin de configurer des bases de données ou des clusters de traitement. C'est particulièrement utile pour les analyses ad hoc et les requêtes rapides sur de grandes quantités de données.
-
-**Ça fait quoi ?**
-- Athena lit les données depuis S3, les interprète en fonction du schéma défini (par exemple via AWS Glue), et exécute des requêtes SQL pour extraire des informations. Vous pouvez ainsi filtrer, agréger, et manipuler les données directement depuis votre navigateur.
-
----
-
-### **6. Amazon QuickSight**
-
-**À quoi ça sert ?**
-- Amazon QuickSight est un service de visualisation de données qui permet de créer des tableaux de bord interactifs et des rapports visuels à partir de vos données.
-
-**Quand l'utiliser ?**
-- Vous l'utilisez pour transformer les résultats de vos analyses en visualisations claires et compréhensibles, que vous pouvez partager avec d'autres membres de votre équipe ou présenter aux parties prenantes.
-
-**Ça fait quoi ?**
-- QuickSight se connecte à vos sources de données (comme Athena), extrait les données, et vous permet de créer des graphiques, des cartes, et d'autres visualisations interactives. Il vous aide à tirer des conclusions significatives de vos données de manière visuelle.
-
----
-
-### **7. Amazon IAM (Identity and Access Management)**
-
-**À quoi ça sert ?**
-- IAM est un service qui vous permet de gérer de manière sécurisée l'accès aux services et ressources AWS pour vos utilisateurs.
-
-**Quand l'utiliser ?**
-- Vous utilisez IAM pour contrôler qui peut accéder à vos ressources AWS, et pour définir les permissions nécessaires pour chaque utilisateur ou rôle.
-
-**Ça fait quoi ?**
-- IAM vous permet de créer des utilisateurs et des rôles avec des permissions spécifiques, afin de restreindre l'accès à certaines actions ou services AWS. Cela aide à sécuriser votre environnement AWS en s'assurant que chaque utilisateur ou service dispose uniquement des permissions dont il a besoin.
-
----
-
-### **Pourquoi tout cela est important ?**
-
-Chaque composant de ce pipeline a été choisi pour sa capacité à rendre votre projet plus efficace, sécurisé, et évolutif. En utilisant ces services ensemble, vous créez une infrastructure robuste qui peut traiter de grandes quantités de données, les analyser, et les visualiser de manière intuitive. C'est cette combinaison de technologies qui permet aux analystes de votre organisation de prendre des décisions éclairées basées sur des données précises et bien préparées.
-
-
-
-
-
-
-
-
-
-
-🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
-🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
-🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
-
-----
-*Partie5 - Explication des différents composants du projet Capstone, QUI FAIT QUOI*
-
-----
-
-
-- Pour comprendre comment les données circulent à travers les différents services dans ce projet Capstone, nous allons décrire un **workflow détaillé des données**. Ce workflow vous permettra de visualiser qui (quel service ou outil) contacte qui pour faire quoi à chaque étape.
-
-### **Workflow des données du projet Capstone**
-
-1. **Point d'entrée : Amazon S3**
-   - **Pourquoi ?**  
-     Amazon S3 est votre point d'entrée principal pour stocker les données brutes, comme les fichiers CSV, dans le cloud. Les données sont initialement téléchargées dans S3 afin qu'elles soient accessibles par d'autres services AWS.
-   - **Ce qui se passe :**
-     - **Téléchargement des fichiers CSV :** Vous téléchargez manuellement les fichiers CSV depuis votre ordinateur vers un bucket S3 nommé `data-source-#####`. S3 stocke ces fichiers en toute sécurité.
-     - **Service initiateur :** Vous (l'utilisateur) interagissez directement avec S3 pour le téléchargement initial des fichiers.
-
-2. **Transformation des données : AWS Cloud9 & Conversion en Parquet**
-   - **Pourquoi ?**
-     Vous transformez les fichiers CSV en format Parquet car ce dernier est plus optimisé pour l'analyse de données volumineuses.
-   - **Ce qui se passe :**
-     - **Utilisation de AWS Cloud9 :** Vous utilisez AWS Cloud9 pour exécuter du code Python qui lit les fichiers CSV depuis S3, les convertit en Parquet, puis télécharge les fichiers Parquet dans le même bucket S3 (`data-source-#####`).
-     - **Service initiateur :** Cloud9 est utilisé pour manipuler les fichiers et effectuer la conversion. Il interagit avec S3 pour lire les fichiers CSV et y écrire les fichiers Parquet.
-
-3. **Exploration et Catalogage des données : AWS Glue Crawler**
-   - **Pourquoi ?**
-     Le crawler AWS Glue est utilisé pour explorer les fichiers Parquet dans S3, inférer la structure des données (schéma) et les cataloguer dans une base de données Glue pour faciliter les requêtes futures.
-   - **Ce qui se passe :**
-     - **Exploration des fichiers Parquet :** AWS Glue Crawler est configuré pour parcourir le bucket S3 où sont stockés les fichiers Parquet (`data-source-#####`), il infère automatiquement le schéma des données.
-     - **Catalogage des données :** Une fois que le schéma est inféré, Glue enregistre ces informations dans une base de données Glue nommée `fishdb`, ce qui permet à d'autres services, comme Athena, de facilement interroger les données.
-     - **Service initiateur :** AWS Glue interagit avec S3 pour lire les fichiers Parquet et en extraire les métadonnées (le schéma des données).
-
-4. **Analyse des données : Amazon Athena**
-   - **Pourquoi ?**
-     Amazon Athena est utilisé pour exécuter des requêtes SQL sur les données stockées dans S3, en utilisant les métadonnées créées par AWS Glue.
-   - **Ce qui se passe :**
-     - **Exécution des requêtes SQL :** Vous écrivez des requêtes SQL dans Athena pour extraire, filtrer, et analyser les données cataloguées par AWS Glue. Athena interagit directement avec les fichiers Parquet dans S3 via le schéma stocké dans Glue.
-     - **Service initiateur :** Athena interagit avec S3 pour lire les données, en utilisant les informations de schéma cataloguées dans Glue.
-
-5. **Visualisation des résultats : Amazon QuickSight**
-   - **Pourquoi ?**
-     QuickSight est utilisé pour créer des visualisations interactives à partir des résultats des requêtes Athena.
-   - **Ce qui se passe :**
-     - **Création des visualisations :** QuickSight se connecte à Athena pour récupérer les résultats des requêtes et les transforme en graphiques et tableaux de bord que vous pouvez analyser visuellement.
-     - **Service initiateur :** QuickSight interagit avec Athena pour obtenir les résultats des requêtes SQL, puis les affiche sous forme de visualisations interactives.
-
-### **Résumé du Workflow des données**
-
-1. **Téléchargement des CSV vers S3 (par vous) :**
-   - **S3 stocke les fichiers CSV.**
-
-2. **Transformation des CSV en Parquet via Cloud9 :**
-   - **Cloud9 lit les fichiers CSV depuis S3, les convertit en Parquet, et les remet dans S3.**
-
-3. **Exploration et catalogage des fichiers Parquet via Glue Crawler :**
-   - **Glue Crawler explore les fichiers Parquet dans S3, infère leur schéma, et enregistre ces métadonnées dans une base de données Glue.**
-
-4. **Requêtes SQL sur les fichiers Parquet via Athena :**
-   - **Athena exécute des requêtes SQL sur les données cataloguées, utilisant S3 comme source de données.**
-
-5. **Visualisation des résultats via QuickSight :**
-   - **QuickSight récupère les résultats des requêtes via Athena et les transforme en graphiques.**
-
-### **Flux visuel du workflow**
-
-```
-+-----------------------------------------------------------+
-|               Téléchargement des fichiers CSV             |
-|                          (S3)                             |
-+-----------------------------------------------------------+
-                          |
-                          v
-+-----------------------------------------------------------+
-|    Transformation des CSV en Parquet via AWS Cloud9        |
-|           (Interaction avec S3 pour lire et écrire)       |
-+-----------------------------------------------------------+
-                          |
-                          v
-+-----------------------------------------------------------+
-|    Exploration et Catalogage des fichiers Parquet          |
-|       via AWS Glue Crawler (Interaction avec S3)           |
-+-----------------------------------------------------------+
-                          |
-                          v
-+-----------------------------------------------------------+
-|    Requêtes SQL sur les données cataloguées via Athena     |
-|            (Interaction avec S3 et AWS Glue)              |
-+-----------------------------------------------------------+
-                          |
-                          v
-+-----------------------------------------------------------+
-|  Visualisation des résultats via Amazon QuickSight         |
-|        (Interaction avec Athena pour les données)         |
-+-----------------------------------------------------------+
-```
-
-Ce workflow montre clairement comment les données circulent à travers les différents services AWS et comment chaque composant joue un rôle essentiel pour permettre la transformation, l'analyse, et la visualisation des données.
+7. Après avoir créé et exécuté la requête correcte et visualisé les résultats affichés, créez une vue basée sur la requête :
+   - Choisissez **Create** > **View from query**.
+   - Nommez la vue **challenge**.
+
+#### Tâche 3 : Transformer un nouveau fichier et l'ajouter à l'ensemble de données
+
+Dans cette partie du projet de clôture, vous allez ajouter le fichier de données **SAU-EEZ-242-v48-0.csv** à votre ensemble de données dans Amazon S3.
+
+Ce fichier a quelques noms de colonnes qui ne correspondent pas aux données que vous avez déjà ajoutées à votre bucket S3. Cependant, les données de ces colonnes sont alignées avec les données existantes. Vous devrez modifier les noms des colonnes avant d'ajouter les données à votre bucket.
+
+1. Analysez la structure des données du fichier **SAU-EEZ-242-v48-0.csv**. Comparez les colonnes qu'il contient avec celles des autres fichiers de données.
+
+   **Conseil :** La plupart des noms de colonnes correspondent entre les trois fichiers. Cependant, deux des noms de colonnes dans le fichier ZEE ne sont pas une correspondance exacte.
+
+2. Utilisez la bibliothèque d'analyse de données Python appelée **pandas** pour corriger les noms de colonnes. De plus, convertissez le fichier ZEE au format Parquet.
+
+   Pour accomplir ces tâches, exécutez toutes les commandes du bloc de code suivant. Cependant, avant d'exécuter la commande `df.rename`, remplacez les espaces réservés `<FMI_#>` par les valeurs correctes.
+
+   **Conseils :**
+   - Par exemple, `<FMI_1>` doit être défini sur l'un des noms de colonnes que vous souhaitez changer et `<FMI_2>` doit être défini sur ce que vous voulez changer.
+   - Il sera plus facile de lire la sortie des lignes de print si vous élargissez autant que possible la fenêtre de votre navigateur.
+
+   ```python
+   # Faire une sauvegarde du fichier avant de le modifier sur place
+   cp SAU-EEZ-242-v48-0.csv SAU-EEZ-242-v48-0-old.csv
+
+   # Démarrer l'interpréteur Python interactif
+   python
+
+   import pandas as pd
+
+   # Charger la version sauvegardée du fichier
+   data_location = 'SAU-EEZ-242-v48-0-old.csv'
+
+   # Utiliser Pandas pour lire le fichier CSV dans un dataframe
+   df = pd.read_csv(data_location)
+
+   # Afficher les noms de colonnes actuels
+   print(df.head(1))
+
+   # Changer les noms des colonnes 'fish_name' et 'country' pour correspondre aux noms de colonnes où ces données apparaissent dans les autres fichiers de données déjà dans votre bucket data-source
+  
+
+ df.rename(columns = {"<FMI_1>": "<FMI_2>", "<FMI_3>": "<FMI_4>"}, inplace = True)
+
+   # Vérifier que les noms de colonnes ont été changés
+   print(df.head(1))
+
+   # Écrire les changements sur disque
+   df.to_csv('SAU-EEZ-242-v48-0.csv', header=True, index=False)
+   df.to_parquet('SAU-EEZ-242-v48-0.parquet')
+   exit()
+   ```
+
+3. Téléchargez le nouveau fichier de données ZEE dans le bucket data-source.
+
+4. Pour mettre à jour les métadonnées de la table avec les colonnes supplémentaires qui font maintenant partie de votre ensemble de données, exécutez à nouveau le robot d'exploration AWS Glue.
+
+5. Exécutez quelques requêtes dans Athena.
+   **Remarque :** Pour toutes ces requêtes, remplacez `data_source_#####` par le nom de votre table `data_source`.
+
+   - Pour vérifier les valeurs dans la colonne `area_name`, comme vous l'avez fait précédemment, utilisez la requête suivante :
+   ```sql
+   SELECT DISTINCT area_name FROM fishdb.data_source_#####;
+   ```
+   Avec l'ajout du fichier ZEE à l'ensemble de données, cette requête renvoie maintenant trois résultats, y compris le résultat pour les lignes où la colonne `area_name` ne contient aucune donnée. (Rappelez-vous que cette requête ne renvoyait que deux résultats précédemment.)
+
+   - Pour trouver la valeur en dollars US de tous les poissons capturés par Fidji dans les eaux de haute mer depuis 2001, organisés par année, utilisez la requête suivante :
+   ```sql
+   SELECT year, fishing_entity AS Country, CAST(CAST(SUM(landed_value) AS DOUBLE) AS DECIMAL(38,2)) AS ValueOpenSeasCatch 
+   FROM fishdb.data_source_#####
+   WHERE area_name IS NULL AND fishing_entity='Fiji' AND year > 2000
+   GROUP BY year, fishing_entity
+   ORDER By year
+   ```
+
+   - Pour trouver la valeur en dollars US de tous les poissons capturés par Fidji dans la ZEE de Fidji depuis 2001, organisés par année, utilisez la requête suivante :
+   ```sql
+   SELECT year, fishing_entity AS Country, CAST(CAST(SUM(landed_value) AS DOUBLE) AS DECIMAL(38,2)) AS ValueEEZCatch
+   FROM fishdb.data_source_#####
+   WHERE area_name LIKE '%Fiji%' AND fishing_entity='Fiji' AND year > 2000
+   GROUP BY year, fishing_entity
+   ORDER By year
+   ```
+
+   - Pour trouver la valeur en dollars US de tous les poissons capturés par Fidji dans la ZEE de Fidji ou en haute mer depuis 2001, organisés par année, utilisez la requête suivante :
+   ```sql
+   SELECT year, fishing_entity AS Country, CAST(CAST(SUM(landed_value) AS DOUBLE) AS DECIMAL(38,2)) AS ValueEEZAndOpenSeasCatch 
+   FROM fishdb.data_source_#####
+   WHERE (area_name LIKE '%Fiji%' OR area_name IS NULL) AND fishing_entity='Fiji' AND year > 2000
+   GROUP BY year, fishing_entity
+   ORDER By year
+   ```
+
+   **Analyse :** Si vos données sont bien formatées et que le robot d'exploration AWS Glue a correctement mis à jour la table de métadonnées, les résultats que vous obtenez des deux premières requêtes de cette étape devraient correspondre aux résultats que vous obtenez de la troisième requête.
+
+   Par exemple, si vous additionnez la valeur `ValueOpenSeasCatch` de 2001 et la valeur `ValueEEZCatch` de 2001, le total devrait être égal à la valeur `ValueEEZAndOpenSeasCatch` de 2001. Si vos résultats sont cohérents avec cette description, c'est un bon indicateur que votre solution fonctionne comme prévu.
+
+6. Créez une vue dans Athena, qui sera utile pour visualiser les données dans la dernière partie de ce projet de clôture.
+   - Exécutez la requête suivante. Remplacez `data_source_#####` par le nom de votre table `data_source` :
+   ```sql
+   CREATE OR REPLACE VIEW MackerelsCatch AS
+   SELECT year, area_name AS WhereCaught, fishing_entity as Country, SUM(tonnes) AS TotalWeight
+   FROM fishdb.data_source_#####
+   WHERE common_name LIKE '%Mackerels%' AND year > 2014
+   GROUP BY year, area_name, fishing_entity, tonnes
+   ORDER BY tonnes DESC
+   ```
+   - Pour vérifier que la vue contient des données, dans le panneau **Data**, sous **Views**, choisissez l'icône des ellipses (trois points) à droite de la vue `mackerelscatch`, puis choisissez **Preview View**.
+
+#### Tâche 4 : Visualiser les résultats dans QuickSight
+
+Dans cette dernière partie du projet de clôture, vous serez mis au défi d'utiliser QuickSight pour créer un graphique à barres à partir de votre ensemble de données. Vous modifierez également la requête sur laquelle le graphique est basé, ce qui ajustera ce qui s'affiche dans le graphique.
+
+1. Créez un compte QuickSight.
+   - Accédez à la console QuickSight.
+   - Choisissez **Sign up for QuickSight**.
+   - En bas de la page, là où il est indiqué **Sign up for Standard Edition here**, choisissez **here**.
+   - **Important :** Un message indique que vous n'avez peut-être pas les autorisations nécessaires pour vous inscrire à QuickSight. C'est prévu dans l'environnement de laboratoire. Ignorez le message et continuez à suivre ces instructions pour créer le compte.
+   - Sur la page **Create your QuickSight account**, configurez les éléments suivants :
+     - **Nom du compte QuickSight :** Entrez un nom, par exemple `capstone-#####`, où ##### est un nombre aléatoire.
+     - **Adresse e-mail de notification :** Entrez une adresse e-mail à laquelle vous pouvez accéder.
+     - Dans la zone **QuickSight access to AWS services** :
+       - Vérifiez qu'Athena est sélectionné. Si ce n'est pas déjà le cas, sélectionnez-le maintenant.
+       - Désélectionnez tous les autres services.
+   - Choisissez **Finish**.
+   - **Important :** Vous verrez à nouveau un message indiquant que vous n'avez peut-être pas toutes les autorisations nécessaires. Vous pouvez ignorer ce message. La création du compte prendra une ou deux minutes.
+   - Choisissez **Go to Amazon QuickSight**.
+   - La page **QuickSight Analyses** s'affiche. Laissez cet onglet de navigateur ouvert. Vous y reviendrez dans un instant.
+   - Dans un nouvel onglet de navigateur, accédez à la console IAM.
+     - Choisissez **Roles**, puis choisissez le rôle `aws-quicksight-service-role-v0`.
+     - Dans le menu **Add permissions**, choisissez **Attach policies**.
+     - Recherchez la politique `AmazonS3FullAccess`, puis sélectionnez-la en cochant la case à côté.
+     - Choisissez **Add permissions**.
+     - Dans la page du rôle `aws-quicksight-service-role-v0`, vérifiez que la politique `AmazonS3FullAccess` apparaît maintenant dans l'onglet **Permissions**.
+   - Revenez à l'onglet du navigateur où QuickSight est ouvert.
+
+2. Créez un nouvel ensemble de données QuickSight.
+   - Dans le volet de navigation, choisissez **Datasets**.
+   - Choisissez **New dataset**.
+   - Choisissez **Athena**, puis configurez les éléments suivants :
+     - **Nom de la source de données :** Entrez `MackerelsView`.
+     - **Athena workgroup :** Choisissez `[primary]`.
+   - Choisissez **Validate connection**.
+   - Choisissez **Create data source**.
+   - Configurez les éléments suivants :
+     - **Catalog :** Choisissez `AwsDataCatalog`.
+     - **Database :** Choisissez `fishdb`.
+     - **Tables :** Choisissez `mackerelscatch`.
+   - Choisissez **Select**.
+   - Choisissez **Directly query your data**, puis choisissez **Visualize**.
+
+3. Créez un graphique dans QuickSight.
+   - Si un panneau **New sheet** s'affiche, gardez **Interactive sheet** sélectionné et choisissez **CREATE**.
+   - Dans la liste **Fields** à gauche, faites glisser `year` vers le graphique vide.
+   - Pour agrandir la zone **Field wells**, choisissez l'icône de flèche dans le coin supérieur droit de la page.
+   - Les paramètres **Y axis**, **Value**, et **Group/Color** sont affichés pour le graphique que vous construisez.
+   - Vérifiez que `year` se trouve dans le champ **Y axis**. Si ce n'est pas le cas, faites-le glisser maintenant.
+   - Dans la liste **Fields**, faites glisser `country` vers le champ **Group/Color**.
+   - Faites glisser `totalweight` vers le champ **Value**.
+   - Ajustez les paramètres du graphique :
+     - Choisissez l'icône des deux flèches dans le coin supérieur droit du graphique pour en agrandir la taille.
+     - Double-cliquez sur le titre du graphique, **Sum of Totalweight by Year
+
+ and Country**. 
+     - Placez votre curseur dans le champ de texte qui indique **Default**, et entrez le titre suivant comme nouveau titre du graphique : **Tonnes de maquereaux capturées par année par pays dans la ZEE des Fidji et dans la zone de haute mer Pacific, Western Central**.
+     - Choisissez **Save**.
+     - Sur le côté gauche du graphique, choisissez l'icône de flèche (>) au-dessus de `year`. Choisissez **Format**, puis choisissez le format de nombre qui ne contient ni virgules ni points.
+     - Choisissez l'icône de flèche sur l'onglet **Sheet 1**, au-dessus du graphique, choisissez **Rename**, et renommez la feuille en **Fish Data**.
+
+4. Réduisez la quantité de données affichées dans le graphique.
+   - Revenez à l'éditeur de requêtes Athena, et modifiez la vue que vous avez créée pour qu'elle ne comprenne que les données pour les six entités de pêche qui ont capturé le plus grand poids total de maquereaux dans une année entre 2013 et 2018.
+   - **Conseils :**
+     - La requête SQL suivante identifiera les entités de pêche avec la plus grande capture de maquereaux chaque année :
+     ```sql
+     SELECT year, Country, MAX(TotalWeight) AS Weight
+     FROM fishdb.mackerelscatch 
+     GROUP BY year, Country  
+     ORDER BY year, Weight DESC;
+     ```
+     - **Remarque :** L'ordre des entités de pêche ayant capturé le plus de poissons chaque année varie. Cependant, même si un pays a capturé le troisième plus grand nombre de poissons une année, et le quatrième plus grand nombre une autre année, vous devriez observer que ce sont toujours les mêmes six entités de pêche qui sont listées chaque année dans les six premières positions pour les poissons capturés.
+     - Dans la requête que vous avez exécutée précédemment pour créer la vue `MackerelsCatch` (la requête commence par **CREATE OR REPLACE VIEW MackerelsCatch**), modifiez la clause WHERE pour ajuster les entités de pêche et les années qui apparaîtront dans l'ensemble de données. Vous pourriez inclure **AND fishing_entity IN** comme partie de votre clause WHERE.
+   - Revenez à l'onglet du navigateur où vous avez le graphique **Fish Data** ouvert dans QuickSight, et rafraîchissez la page du navigateur.
+   - L'affichage des données a changé et n'inclut maintenant que les années et les pays spécifiés, comme illustré dans l'image suivante :
+
+5. **Soumettre votre travail**
+   - Pour enregistrer vos progrès, choisissez **Submit** en haut de ces instructions.   
+   - Lorsque vous y êtes invité, choisissez **Yes**.
+   - Après quelques minutes, le panneau des notes apparaît et vous montre combien de points vous avez obtenus pour chaque tâche. Si les résultats ne s'affichent pas après quelques minutes, choisissez **Grades** en haut de ces instructions.
+   - **Conseil :** Vous pouvez soumettre votre travail plusieurs fois. Après avoir modifié votre travail, choisissez **Submit** à nouveau. Votre dernière soumission est enregistrée pour ce laboratoire.
+   - Pour trouver des commentaires détaillés sur votre travail, choisissez **Submission Report**.
+
+6. **Terminer votre session**
+   - **Rappel :** Il s'agit d'un environnement de laboratoire à long terme. Les données sont conservées jusqu'à ce que vous utilisiez soit le budget alloué, soit la date de fin du cours (selon ce qui survient en premier).
+   - Pour préserver votre budget lorsque vous avez terminé pour la journée, ou lorsque vous avez terminé de travailler activement sur la tâche, faites ce qui suit :
+     1. En haut de cette page, choisissez **End Lab**, puis choisissez **Yes** pour confirmer que vous voulez terminer le laboratoire.
+     2. Un panneau de message indique que le laboratoire est en train de se terminer.
+     3. **Remarque :** Choisir **End Lab** dans cet environnement de projet de clôture ne supprimera pas la ressource que vous avez créée. Elles seront toujours là la prochaine fois que vous choisirez **Start Lab** (par exemple, un autre jour).
+     4. Pour fermer le panneau, choisissez **Close** dans le coin supérieur droit.
 
