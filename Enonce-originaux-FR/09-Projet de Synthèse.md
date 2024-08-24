@@ -101,9 +101,7 @@ Dans cette première partie du projet de clôture, vous configurerez votre envir
    - L'année de la pêche
    - Le pays (fishing_entity) qui a pêché
    - Les tonnes de poissons capturées cette année-là par ce pays
-   - La valeur en dollars américains de 2010 (landed_value) des poissons capt
-
-urés cette année-là par ce pays
+   - La valeur en dollars américains de 2010 (landed_value) des poissons capturés cette année-là par ce pays
 
    **Remarque :**
    - Cet ensemble de données contient 561 675 lignes.
