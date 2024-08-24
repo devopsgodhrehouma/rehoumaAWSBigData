@@ -3,7 +3,7 @@
 ----
 
 
-### **Aperçu et objectifs**
+# **Aperçu et objectifs**
 
 Au cours de ce projet Capstone, vous allez créer une solution utilisant plusieurs services AWS que vous connaissez, sans recevoir des instructions détaillées étape par étape. Certaines sections de cet exercice sont conçues pour être difficiles. Ce projet vous mettra au défi de :
 
@@ -14,23 +14,23 @@ Au cours de ce projet Capstone, vous allez créer une solution utilisant plusieu
 - Créer une vue Athena.
 - Utiliser Amazon QuickSight pour visualiser les données.
 
-### **Durée et suivi de votre budget**
+# **Durée et suivi de votre budget**
 
 Ce projet devrait nécessiter environ 4 heures pour être complété. L'environnement est persistant : lorsque le minuteur de la session atteint 0:00, la session se termine, mais toutes les données et ressources créées dans le compte AWS sont conservées. Vous pouvez relancer la session à tout moment avant la fin du temps imparti en choisissant "Start Lab".
 
-### **Accès aux services AWS**
+# **Accès aux services AWS**
 
 L'accès aux services et actions AWS peut être restreint aux besoins de ce projet. Vous pourriez rencontrer des erreurs si vous tentez d'accéder à d'autres services ou d'exécuter des actions non décrites dans ce projet.
 
-### **Le jeu de données**
+# **Le jeu de données**
 
 Le site Sea Around Us propose un ensemble de données avec des informations historiques détaillées sur les pêcheries mondiales, de 1950 à 2018. Les données incluent les captures de poissons par pays, les tonnes pêchées, et la valeur de ces captures en dollars américains de 2010.
 
-### **Scénario**
+# **Scénario**
 
 Vous devez créer l'infrastructure pour héberger ces données afin que les analystes puissent créer des rapports sur l'impact de la pêche en haute mer. Vous testerez cette infrastructure en utilisant trois fichiers de données du site Sea Around Us.
 
-### **Accès à la console de gestion AWS**
+# **Accès à la console de gestion AWS**
 
 1. **Lancer l'environnement de lab** :
    - Cliquez sur "Start Lab".
@@ -39,7 +39,7 @@ Vous devez créer l'infrastructure pour héberger ces données afin que les anal
 2. **Connexion à la console de gestion AWS** :
    - Cliquez sur le lien AWS en haut à gauche pour ouvrir la console dans un nouvel onglet.
 
-### **Tâche 1 : Configuration de l'environnement de développement**
+# **Tâche 1 : Configuration de l'environnement de développement**
 
 1. **Observer les détails du rôle IAM CapstoneGlueRole**.
 2. **Créer un environnement AWS Cloud9** :
@@ -57,7 +57,7 @@ Vous devez créer l'infrastructure pour héberger ces données afin que les anal
 
 7. **Télécharger le fichier Parquet dans le bucket S3 data-source**.
 
-### **Tâche 2 : Utilisation d’un crawler AWS Glue et requêtes avec Athena**
+# **Tâche 2 : Utilisation d’un crawler AWS Glue et requêtes avec Athena**
 
 1. **Configurer un crawler AWS Glue** :
    - Créer une base de données `fishdb` et un crawler `fishcrawler`.
@@ -65,20 +65,20 @@ Vous devez créer l'infrastructure pour héberger ces données afin que les anal
 
 2. **Exécuter des requêtes SQL avec Athena** sur les données découvertes.
 
-### **Tâche 3 : Transformation et ajout de nouveaux fichiers**
+# **Tâche 3 : Transformation et ajout de nouveaux fichiers**
 
 1. **Analyser la structure du fichier SAU-EEZ-242-v48-0.csv**.
 2. **Modifier les noms de colonnes** pour les aligner avec les autres fichiers et convertir en format Parquet.
 3. **Télécharger le fichier transformé dans le bucket S3**.
 4. **Mettre à jour la table dans AWS Glue** en réexécutant le crawler.
 
-### **Tâche 4 : Visualisation des résultats dans QuickSight**
+# **Tâche 4 : Visualisation des résultats dans QuickSight**
 
 1. **Créer un compte QuickSight** et configurer l'accès à Athena.
 2. **Créer un jeu de données QuickSight** basé sur la vue `MackerelsCatch`.
 3. **Créer un graphique dans QuickSight** représentant les tonnes de maquereaux pêchées par année et par pays.
 
-### **Diagramme ASCII du Pipeline**
+# **Diagramme ASCII du Pipeline**
 
 ```
     +--------------------+
