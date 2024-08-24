@@ -1,11 +1,13 @@
-# rehoumaAWSBigData
+----
+# Travail demandé aux étudiants
+-----
 
 ---
 
 # 01 - Important
 ---
 
-Chers étudiants,
+Chers étudiant.e.s,
 
 Je vous rappelle les échéances importantes pour ce semestre :
 1. **Rapport mi-session :** Vous devez soumettre un rapport comprenant les étapes détaillées et des captures d'écran de votre travail. La date limite pour ce rapport est le **27 septembre**.
