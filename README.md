@@ -9,3 +9,16 @@
 8. **Lab: Building and Orchestrating ETL Pipelines by Using Athena and Step Functions**
 9. **Capstone**
 10. **Lambda**
+
+
+
+# Dates
+
+- 30 août
+- 6 septembre
+- 13 septembre
+- 20 septembre
+- 27 septembre
+- 4 octobre
+- 11 octobre
+- 18 octobre
