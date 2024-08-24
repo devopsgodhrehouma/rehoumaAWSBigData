@@ -271,7 +271,6 @@ Vous devez créer l'infrastructure pour héberger ces données afin que les anal
 
 # **Diagramme du Pipeline**
 
-Voici un diagramme ASCII encore plus détaillé pour vous aider à visualiser chaque étape du pipeline :
 
 ```
       +-------------------------------------+
