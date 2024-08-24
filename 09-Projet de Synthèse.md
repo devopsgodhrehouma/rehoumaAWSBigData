@@ -126,7 +126,192 @@ Vous devez créer l'infrastructure pour héberger ces données afin que les anal
 ```
 
 ----
-*Partie2* 
+*Partie2 - Pipeline détaillé du projet Capstone en Data Engineering**
 
 ----
+
+
+
+# **1. Lancer et configurer l'environnement de développement**
+
+**Objectif :** Créer un environnement de développement intégré (IDE) sur AWS Cloud9 pour travailler sur ce projet.
+
+1. **Créer un environnement Cloud9 :**
+   - **Pourquoi ?** AWS Cloud9 est un IDE basé sur le cloud qui vous permet d'écrire, d'exécuter et de déboguer votre code à partir de votre navigateur.
+   - **Comment faire ?**
+     - Allez sur la console AWS, puis recherchez "Cloud9".
+     - Cliquez sur "Create environment".
+     - Donnez un nom à votre environnement, par exemple `CapstoneIDE`.
+     - Sélectionnez "Create a new EC2 instance" et choisissez une instance `t2.micro`, qui est gratuite dans le cadre de l'offre gratuite d'AWS.
+     - Assurez-vous que l'instance est déployée dans le VPC Capstone et dans le sous-réseau public Capstone.
+     - Gardez toutes les autres options par défaut et cliquez sur "Create environment".
+
+2. **Vérifier les rôles IAM :**
+   - **Pourquoi ?** Le rôle IAM `CapstoneGlueRole` permet à différents services AWS de communiquer en toute sécurité et d'accéder aux ressources nécessaires.
+   - **Comment faire ?**
+     - Dans la console AWS, recherchez "IAM".
+     - Allez dans "Roles" et recherchez `CapstoneGlueRole`.
+     - Vérifiez les permissions associées à ce rôle pour vous assurer qu'il peut accéder aux ressources AWS nécessaires.
+
+# **2. Créer et configurer les buckets S3**
+
+**Objectif :** Stocker les fichiers de données dans Amazon S3, un service de stockage d'objets sécurisé et évolutif.
+
+1. **Créer deux buckets S3 :**
+   - **Pourquoi ?** Les buckets S3 vous permettent de stocker et d'organiser les fichiers de données utilisés dans ce projet.
+   - **Comment faire ?**
+     - Dans la console AWS, recherchez "S3".
+     - Cliquez sur "Create bucket".
+     - Nommez le premier bucket `data-source-#####` (remplacez `#####` par un numéro aléatoire).
+     - Nommez le deuxième bucket `query-results-#####`.
+     - Sélectionnez la région `us-east-1` pour les deux buckets.
+     - Gardez les paramètres par défaut et cliquez sur "Create bucket".
+
+# **3. Télécharger les fichiers de données CSV**
+
+**Objectif :** Obtenir les fichiers de données CSV nécessaires au projet et les examiner.
+
+1. **Télécharger les fichiers CSV :**
+   - **Pourquoi ?** Ces fichiers contiennent des données historiques sur la pêche, que vous allez transformer et analyser.
+   - **Comment faire ?**
+     - Ouvrez le terminal dans votre environnement Cloud9.
+     - Exécutez les commandes suivantes pour télécharger les fichiers CSV :
+
+       ```bash
+       wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACDENG-1-91570/lab-capstone/s3/SAU-GLOBAL-1-v48-0.csv
+       wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACDENG-1-91570/lab-capstone/s3/SAU-HighSeas-71-v48-0.csv
+       wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACDENG-1-91570/lab-capstone/s3/SAU-EEZ-242-v48-0.csv
+       ```
+
+2. **Examiner les données :**
+   - **Pourquoi ?** Comprendre la structure des fichiers CSV est essentiel pour les prochaines étapes de transformation.
+   - **Comment faire ?**
+     - Pour afficher les premières lignes d'un fichier, utilisez la commande `head` :
+
+       ```bash
+       head -6 SAU-GLOBAL-1-v48-0.csv
+       ```
+
+     - Cette commande affiche les en-têtes de colonnes et les premières lignes de données, vous donnant un aperçu de ce que contient le fichier.
+
+# **4. Conversion des fichiers CSV en format Parquet**
+
+**Objectif :** Convertir les fichiers CSV en format Parquet, un format de stockage optimisé pour les gros volumes de données.
+
+1. **Installer les outils nécessaires :**
+   - **Pourquoi ?** Vous aurez besoin de bibliothèques Python spécifiques pour effectuer la conversion.
+   - **Comment faire ?**
+     - Dans le terminal de Cloud9, installez les bibliothèques avec la commande suivante :
+
+       ```bash
+       sudo pip3 install pandas pyarrow fastparquet
+       ```
+
+2. **Convertir le fichier CSV en Parquet :**
+   - **Pourquoi ?** Le format Parquet est plus efficace pour le stockage et la requête de données volumineuses.
+   - **Comment faire ?**
+     - Démarrez une session Python interactive dans le terminal :
+
+       ```bash
+       python
+       ```
+
+     - Utilisez le code suivant pour lire le fichier CSV et le convertir en Parquet :
+
+       ```python
+       import pandas as pd
+       df = pd.read_csv('SAU-GLOBAL-1-v48-0.csv')
+       df.to_parquet('SAU-GLOBAL-1-v48-0.parquet')
+       exit()
+       ```
+
+# **5. Téléchargement des fichiers Parquet sur S3**
+
+**Objectif :** Stocker les fichiers convertis dans le bucket S3.
+
+1. **Télécharger les fichiers Parquet sur S3 :**
+   - **Pourquoi ?** Les fichiers Parquet doivent être disponibles dans S3 pour être analysés avec les autres services AWS.
+   - **Comment faire ?**
+     - Utilisez la commande AWS CLI suivante dans le terminal Cloud9 pour télécharger le fichier Parquet :
+
+       ```bash
+       aws s3 cp SAU-GLOBAL-1-v48-0.parquet s3://data-source-#####/
+       ```
+
+# **6. Utilisation d'un crawler AWS Glue et requêtes avec Athena**
+
+**Objectif :** Configurer un crawler AWS Glue pour explorer les données et utiliser Amazon Athena pour interroger les données.
+
+1. **Configurer un crawler AWS Glue :**
+   - **Pourquoi ?** AWS Glue vous permet de cataloguer et préparer vos données pour l'analyse.
+   - **Comment faire ?**
+     - Créez une base de données `fishdb` et un crawler `fishcrawler` dans AWS Glue.
+     - Configurez le crawler pour utiliser le rôle IAM `CapstoneGlueRole` et explorer le bucket `data-source`.
+
+2. **Exécuter des requêtes avec Athena :**
+   - **Pourquoi ?** Athena vous permet de faire des requêtes SQL directement sur vos données stockées dans S3.
+   - **Comment faire ?**
+     - Accédez à Athena via la console AWS, configurez l'éditeur de requêtes pour stocker les résultats dans votre bucket `query-results`.
+     - Exécutez une requête pour vérifier que vos données sont correctement cataloguées.
+
+# **7. Visualisation des résultats avec Amazon QuickSight**
+
+**Objectif :** Créer des visualisations pour analyser les résultats de vos requêtes.
+
+1. **Créer un compte QuickSight :**
+   - **Pourquoi ?** QuickSight est un outil de visualisation de données qui vous permet de créer des rapports interactifs.
+   - **Comment faire ?**
+     - Allez sur la console QuickSight, inscrivez-vous et configurez l'accès à Athena.
+
+2. **Créer des visualisations :**
+   - **Pourquoi ?** Pour transformer les données en graphiques et rapports compréhensibles.
+   - **Comment faire ?**
+     - Créez un nouveau jeu de données à partir de la vue `MackerelsCatch`.
+     - Créez un graphique représentant les tonnes de maquereaux pêchées par année et par pays.
+
+# **Diagramme du Pipeline**
+
+Voici un diagramme ASCII encore plus détaillé pour vous aider à visualiser chaque étape du pipeline :
+
+```
+      +-------------------------------------+
+      | 1. Lancer AWS Cloud9 IDE            |
+      +------------------+------------------+
+                         |
+                         v
+      +-------------------------------------+
+      | 2. Créer S3 Buckets                 |
+      +------------------+------------------+
+                         |
+                         v
+      +-------------------------------------+
+      | 3. Télécharger fichiers CSV         |
+      +------------------+------------------+
+                         |
+                         v
+      +-------------------------------------+
+      | 4. Conversion CSV -> Parquet        |
+      +------------------+------------------+
+                         |
+                         v
+      +-------------------------------------+
+      | 5. Télécharger Parquet sur S3       |
+      +------------------+------------------+
+                         |
+                         v
+      +-------------------------------------+
+      | 6. Configurer AWS Glue Crawler      |
+      +------------------+------------------+
+                         |
+                         v
+      +-------------------------------------+
+      | 7. Requêtes SQL avec Athena         |
+      +------------------+------------------+
+                         |
+                         v
+      +-------------------------------------+
+      | 8. Visualisation avec QuickSight    |
+      +-------------------------------------+
+```
+
 
