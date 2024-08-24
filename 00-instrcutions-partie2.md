@@ -1,5 +1,5 @@
 ----
-# Ce que le professeur présentera (Analyse + Services)
+# Ce que le professeur présentera (Analyse  uniquement + Description des services AWS)
 -----
 
 1. **Lab: Accessing and Analyzing Data by Using Amazon S3**
