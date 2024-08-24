@@ -1,6 +1,6 @@
 # Projet de Clôture en Ingénierie des Données Académie
 
-#### Vue d'ensemble et objectifs
+# Vue d'ensemble et objectifs
 
 Tout au long de ce cours, vous avez réalisé des laboratoires pratiques où vous avez utilisé les fonctionnalités de différents services AWS pour vous entraîner à ingérer de grands ensembles de données, à les transformer et à en extraire des informations.
 
@@ -15,7 +15,7 @@ Ce projet de clôture vous mettra au défi de faire ce qui suit :
 - Créer une vue Athena.
 - Utiliser Amazon QuickSight pour visualiser les données.
 
-#### Durée et suivi de votre budget
+# Durée et suivi de votre budget
 
 Ce projet est estimé à environ 4 heures de travail.
 
@@ -23,11 +23,11 @@ Cet environnement est à long terme. Lorsque le minuteur de la session atteint 0
 
 **Important :** Surveillez votre budget de laboratoire dans l'interface du laboratoire. Lorsque vous avez une session de laboratoire active, les informations sur le budget restant s'affichent en haut de cet écran. Ces données proviennent d'AWS Budgets, qui se met généralement à jour toutes les 8 à 12 heures. Par conséquent, le budget restant que vous voyez peut ne pas refléter votre activité de compte la plus récente. Si vous dépassez votre budget de laboratoire, votre compte de laboratoire sera désactivé et tout progrès et toutes les ressources seront perdus. Il est donc important de gérer vos dépenses.
 
-#### Restrictions des services AWS
+# Restrictions des services AWS
 
 Dans cet environnement de laboratoire, l'accès aux services et aux actions des services AWS peut être limité à ceux nécessaires pour accomplir les instructions du laboratoire. Vous pourriez rencontrer des erreurs si vous essayez d'accéder à d'autres services ou d'effectuer des actions au-delà de celles décrites dans ce laboratoire.
 
-#### L'ensemble de données
+# L'ensemble de données
 
 Le site Sea Around Us propose un ensemble de données avec des informations historiques détaillées sur les pêcheries dans toutes les parties de chaque océan à l'échelle mondiale. Les données incluent des informations sur les captures de pêcheries annuelles de 1950 à 2018.
 
@@ -40,7 +40,7 @@ Pour comprendre les données, il sera utile de comprendre ce que l'on entend par
 
 Les données de Sea Around Us sont (sauf indication contraire) sous licence Creative Commons Attribution Non-Commercial 4.0 International License (https://creativecommons.org/licenses/by-nc/4.0/). Les avis concernant les droits d'auteur (© Université de la Colombie-Britannique), la licence et la clause de non-responsabilité sont disponibles à l'adresse http://www.seaaroundus.org/terms-and-conditions/.
 
-#### Scénario
+# Scénario
 
 Vous avez pour mission de créer l'infrastructure pour héberger des données sur la pêche afin que les analystes de données de votre organisation puissent créer des rapports sur l'impact de la pêche en haute mer. Vous avez décidé de construire l'infrastructure dans votre compte AWS et de la tester en utilisant trois fichiers de données provenant de l'ensemble de données Sea Around Us.
 
@@ -60,7 +60,7 @@ Lorsque vous commencez le projet de clôture, l'environnement contiendra les res
 
 *Architecture à la fin du projet de clôture.*
 
-#### Accéder à la console de gestion AWS
+# Accéder à la console de gestion AWS
 
 1. En haut de ces instructions, choisissez **Start Lab**.
    - La session de laboratoire commence.
@@ -71,7 +71,7 @@ Lorsque vous commencez le projet de clôture, l'environnement contiendra les res
    - Un nouvel onglet de navigateur s'ouvre et vous connecte à la console.
    - **Conseil :** Si un nouvel onglet ne s'ouvre pas, une bannière ou une icône se trouve généralement en haut de votre navigateur avec le message que votre navigateur empêche le site d'ouvrir des fenêtres pop-up. Choisissez la bannière ou l'icône, puis choisissez **Autoriser les pop-ups**.
 
-#### Tâche 1 : Configurer l'environnement de développement
+# Tâche 1 : Configurer l'environnement de développement
 
 Dans cette première partie du projet de clôture, vous configurerez votre environnement de développement.
 
@@ -126,7 +126,7 @@ Dans cette première partie du projet de clôture, vous configurerez votre envir
    **Remarque :** Pandas est un outil utile pour travailler avec des fichiers de données. Pour plus d'informations, consultez le site web de pandas.
 7. Pour télécharger le fichier SAU-GLOBAL-1-v48-0.parquet vers le bucket data-source, utilisez une commande AWS CLI dans votre terminal AWS Cloud9.
 
-#### Tâche 2 : Utiliser un robot d'exploration AWS Glue et interroger plusieurs fichiers avec Athena
+# Tâche 2 : Utiliser un robot d'exploration AWS Glue et interroger plusieurs fichiers avec Athena
 
 La requête que vous avez exécutée dans la tâche précédente fonctionne bien pour un seul fichier de données. Cependant, que faire si vous devez interroger un ensemble de données plus large composé de plusieurs fichiers ?
 
@@ -184,7 +184,7 @@ Dans cette deuxième partie du projet de clôture, vous interrogez des données 
    - Choisissez **Create** > **View from query**.
    - Nommez la vue **challenge**.
 
-#### Tâche 3 : Transformer un nouveau fichier et l'ajouter à l'ensemble de données
+# Tâche 3 : Transformer un nouveau fichier et l'ajouter à l'ensemble de données
 
 Dans cette partie du projet de clôture, vous allez ajouter le fichier de données **SAU-EEZ-242-v48-0.csv** à votre ensemble de données dans Amazon S3.
 
@@ -290,7 +290,7 @@ Ce fichier a quelques noms de colonnes qui ne correspondent pas aux données que
    ```
    - Pour vérifier que la vue contient des données, dans le panneau **Data**, sous **Views**, choisissez l'icône des ellipses (trois points) à droite de la vue `mackerelscatch`, puis choisissez **Preview View**.
 
-#### Tâche 4 : Visualiser les résultats dans QuickSight
+# Tâche 4 : Visualiser les résultats dans QuickSight
 
 Dans cette dernière partie du projet de clôture, vous serez mis au défi d'utiliser QuickSight pour créer un graphique à barres à partir de votre ensemble de données. Vous modifierez également la requête sur laquelle le graphique est basé, ce qui ajustera ce qui s'affiche dans le graphique.
 
@@ -342,9 +342,7 @@ Dans cette dernière partie du projet de clôture, vous serez mis au défi d'uti
    - Faites glisser `totalweight` vers le champ **Value**.
    - Ajustez les paramètres du graphique :
      - Choisissez l'icône des deux flèches dans le coin supérieur droit du graphique pour en agrandir la taille.
-     - Double-cliquez sur le titre du graphique, **Sum of Totalweight by Year
-
- and Country**. 
+     - Double-cliquez sur le titre du graphique, **Sum of Totalweight by Year and Country**. 
      - Placez votre curseur dans le champ de texte qui indique **Default**, et entrez le titre suivant comme nouveau titre du graphique : **Tonnes de maquereaux capturées par année par pays dans la ZEE des Fidji et dans la zone de haute mer Pacific, Western Central**.
      - Choisissez **Save**.
      - Sur le côté gauche du graphique, choisissez l'icône de flèche (>) au-dessus de `year`. Choisissez **Format**, puis choisissez le format de nombre qui ne contient ni virgules ni points.
