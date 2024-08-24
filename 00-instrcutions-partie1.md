@@ -1,13 +1,17 @@
 ----
-# Travail demandé aux étudiants
+# Ce que les étudiants livreront (mi-session + Lab + Capstone)
 -----
+
+## mi-session ==> présentation théorique
+## LAB ==> rapport avec les imrimes-écrans (screenshots) des manipulations
+## Capstone ==> rapport avec les imprimes-écrans (screenshots) des manipulations
 
 ---
 
 # 01 - Important
 ---
 
-Chers étudiant.e.s,
+Chers étudiant.e.s, 
 
 Je vous rappelle les échéances importantes pour ce semestre :
 1. **Rapport mi-session :** Vous devez soumettre un rapport comprenant les étapes détaillées et des captures d'écran de votre travail. La date limite pour ce rapport est le **27 septembre**.
