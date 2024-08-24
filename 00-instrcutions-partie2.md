@@ -20,8 +20,8 @@
 
 | **Date**          | **Laboratoire**                                                                                                          |
 |-------------------|--------------------------------------------------------------------------------------------------------------------------|
-| **30 août**       | **9. Capstone** + **10. Lambda**                                                                                         |
-| **6 septembre**   | **1. Lab: Accessing and Analyzing Data by Using Amazon S3**                                                              |
+| **30 août**       | **9. Capstone** + **10. Lambda**     (p)                                                                                    |
+| **6 septembre**   | **1. Lab: Accessing and Analyzing Data by Using Amazon S3**     (p)                                                         |
 | **13 septembre**  | **2. Lab: Querying Data by Using Athena**                                                                                |
 | **20 septembre**  | **3. Lab: Performing ETL on a Dataset by Using AWS Glue**                                                                |
 | **27 septembre**  | **4. Lab: Storing and Analyzing Data by Using Amazon Redshift**                                                          |
