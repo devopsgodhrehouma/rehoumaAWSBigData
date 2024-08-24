@@ -321,3 +321,140 @@ Vous devez créer l'infrastructure pour héberger ces données afin que les anal
 
 ----
 
+
+| **Service/Outil**        | **Rôle**                                                         | **Importance**                                                                                                                                                       |
+|--------------------------|------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **AWS Cloud9 IDE**       | Environnement de développement en ligne.                         | Fournit un IDE complet et accessible depuis le navigateur, éliminant le besoin d'installation locale, avec une intégration directe avec les services AWS.            |
+| **Amazon S3**            | Service de stockage d'objets dans le cloud.                      | Stocke les fichiers de données (CSV, Parquet) de manière sécurisée et évolutive. Permet un accès facile aux données par d'autres services AWS.                       |
+| **Fichiers CSV**         | Format de stockage des données tabulaires.                       | Facile à manipuler et à transférer entre systèmes, mais inefficace pour le stockage de grandes quantités de données.                                                 |
+| **Format Parquet**       | Format de fichier columnar optimisé pour l'analyse de données.   | Offre une meilleure performance de stockage et de requête pour les grands ensembles de données, réduisant la taille des fichiers et améliorant la vitesse des requêtes. |
+| **AWS Glue**             | Service d'intégration et de préparation des données.             | Automatise la découverte, la transformation, et le catalogage des données, facilitant ainsi l'analyse et l'intégration des données avec d'autres services AWS.       |
+| **AWS Glue Crawler**     | Composant d'AWS Glue pour explorer et cataloguer les données.    | Infère automatiquement le schéma des données et les organise dans un catalogue central, simplifiant l'accès aux données pour l'analyse avec Athena.                 |
+| **Amazon Athena**        | Service de requêtes SQL sans serveur pour analyser les données.  | Permet d'exécuter des requêtes SQL directement sur des données stockées dans S3 sans besoin de configuration de base de données, offrant une solution rapide et flexible pour l'analyse de données. |
+| **Amazon QuickSight**    | Outil de visualisation de données.                               | Crée des rapports et tableaux de bord interactifs pour interpréter et partager les résultats des analyses de données de manière visuelle et intuitive.              |
+| **Amazon IAM**           | Gestion des identités et des accès.                              | Assure la sécurité en contrôlant qui peut accéder aux services et ressources AWS, permettant une gestion fine des permissions pour protéger l'environnement AWS.     |
+
+### **Résumé de l'Importance**
+
+- **AWS Cloud9 IDE** : Essentiel pour le développement rapide et l'intégration directe avec AWS.
+- **Amazon S3** : Fondamental pour le stockage sécurisé et centralisé des données.
+- **Fichiers CSV** : Utile pour la portabilité des données, mais limité en efficacité pour de grandes quantités de données.
+- **Format Parquet** : Crucial pour l'optimisation du stockage et de l'analyse des données volumineuses.
+- **AWS Glue** : Clé pour la préparation et le catalogage automatisés des données.
+- **AWS Glue Crawler** : Vital pour découvrir et organiser les données automatiquement.
+- **Amazon Athena** : Indispensable pour les analyses SQL rapides sans infrastructure supplémentaire.
+- **Amazon QuickSight** : Important pour transformer les données en visualisations compréhensibles.
+- **Amazon IAM** : Crucial pour assurer la sécurité et la gestion des accès dans AWS.
+
+
+
+🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
+
+----
+*Partie3 - Explication des différents composants du projet Capstone, QUI FAIT QUOI**
+
+----
+
+### **Partie 3 : Explication des différents composants du projet Capstone**
+
+Dans cette section, nous allons explorer en détail les différents composants du pipeline que vous avez mis en place. Nous allons expliquer à quoi sert chaque composant, quand l'utiliser, et ce qu'il fait concrètement. Cela vous aidera à mieux comprendre les technologies que vous utilisez et comment elles fonctionnent ensemble pour accomplir les tâches requises.
+
+---
+
+### **1. AWS Cloud9 IDE**
+
+**À quoi ça sert ?**
+- AWS Cloud9 est un environnement de développement intégré (IDE) en ligne qui vous permet d'écrire, d'exécuter, et de déboguer du code directement depuis votre navigateur. 
+
+**Quand l'utiliser ?**
+- Vous l'utilisez lorsque vous avez besoin d'un environnement de développement rapide et facile à configurer, sans avoir à installer des logiciels sur votre ordinateur local. 
+
+**Ça fait quoi ?**
+- Cloud9 offre un éditeur de code, un terminal, et des outils de débogage dans une seule interface. Il est également intégré avec AWS, ce qui facilite l'accès aux services AWS directement depuis l'IDE.
+
+---
+
+### **2. Amazon S3 (Simple Storage Service)**
+
+**À quoi ça sert ?**
+- Amazon S3 est un service de stockage d'objets dans le cloud qui vous permet de stocker et de récupérer n'importe quelle quantité de données à tout moment, de n'importe où.
+
+**Quand l'utiliser ?**
+- Vous l'utilisez pour stocker des fichiers tels que des jeux de données, des fichiers Parquet, et d'autres ressources nécessaires à votre projet. C'est particulièrement utile pour stocker des fichiers de grande taille ou pour partager des fichiers entre différents services AWS.
+
+**Ça fait quoi ?**
+- S3 vous permet de créer des "buckets" (des conteneurs de stockage) où vous pouvez uploader, organiser, et gérer vos fichiers. Il est hautement disponible, sécurisé, et évolutif, ce qui en fait un choix idéal pour le stockage de données dans le cloud.
+
+---
+
+### **3. CSV (Comma-Separated Values) et Parquet**
+
+**À quoi ça sert ?**
+- Les fichiers CSV sont un format de fichier simple utilisé pour stocker des données tabulaires sous forme de texte, où chaque ligne représente un enregistrement et chaque colonne est séparée par une virgule. Parquet est un format de fichier optimisé pour le stockage de données volumineuses.
+
+**Quand l'utiliser ?**
+- Les fichiers CSV sont utilisés pour la portabilité des données entre différents systèmes et outils, car ils sont largement supportés. Le format Parquet est utilisé lorsque vous avez besoin d'un stockage plus efficace et performant pour de grandes quantités de données.
+
+**Ça fait quoi ?**
+- Convertir des fichiers CSV en Parquet permet de réduire la taille des fichiers et d'améliorer les performances des requêtes sur ces données. Parquet est un format columnar, ce qui signifie qu'il stocke les données par colonne plutôt que par ligne, ce qui est plus efficace pour les requêtes analytiques.
+
+---
+
+### **4. AWS Glue**
+
+**À quoi ça sert ?**
+- AWS Glue est un service d'intégration de données qui facilite la préparation des données pour l'analyse. Il inclut des fonctionnalités pour découvrir, transformer, nettoyer, enrichir, et cataloguer les données.
+
+**Quand l'utiliser ?**
+- Vous utilisez AWS Glue lorsque vous avez besoin de préparer et de transformer des données stockées dans des sources multiples avant de les analyser ou de les visualiser. C'est également utile pour automatiser l'exploration et le catalogage des données.
+
+**Ça fait quoi ?**
+- AWS Glue utilise des "crawlers" pour explorer vos données, inférer leur schéma, et les organiser dans un catalogue central. Cela vous permet de facilement interroger vos données avec d'autres services comme Amazon Athena.
+
+---
+
+### **5. Amazon Athena**
+
+**À quoi ça sert ?**
+- Amazon Athena est un service de requêtes SQL sans serveur qui vous permet d'analyser vos données directement dans S3 en utilisant des commandes SQL.
+
+**Quand l'utiliser ?**
+- Vous l'utilisez pour exécuter des requêtes SQL sur des données stockées dans S3 sans avoir besoin de configurer des bases de données ou des clusters de traitement. C'est particulièrement utile pour les analyses ad hoc et les requêtes rapides sur de grandes quantités de données.
+
+**Ça fait quoi ?**
+- Athena lit les données depuis S3, les interprète en fonction du schéma défini (par exemple via AWS Glue), et exécute des requêtes SQL pour extraire des informations. Vous pouvez ainsi filtrer, agréger, et manipuler les données directement depuis votre navigateur.
+
+---
+
+### **6. Amazon QuickSight**
+
+**À quoi ça sert ?**
+- Amazon QuickSight est un service de visualisation de données qui permet de créer des tableaux de bord interactifs et des rapports visuels à partir de vos données.
+
+**Quand l'utiliser ?**
+- Vous l'utilisez pour transformer les résultats de vos analyses en visualisations claires et compréhensibles, que vous pouvez partager avec d'autres membres de votre équipe ou présenter aux parties prenantes.
+
+**Ça fait quoi ?**
+- QuickSight se connecte à vos sources de données (comme Athena), extrait les données, et vous permet de créer des graphiques, des cartes, et d'autres visualisations interactives. Il vous aide à tirer des conclusions significatives de vos données de manière visuelle.
+
+---
+
+### **7. Amazon IAM (Identity and Access Management)**
+
+**À quoi ça sert ?**
+- IAM est un service qui vous permet de gérer de manière sécurisée l'accès aux services et ressources AWS pour vos utilisateurs.
+
+**Quand l'utiliser ?**
+- Vous utilisez IAM pour contrôler qui peut accéder à vos ressources AWS, et pour définir les permissions nécessaires pour chaque utilisateur ou rôle.
+
+**Ça fait quoi ?**
+- IAM vous permet de créer des utilisateurs et des rôles avec des permissions spécifiques, afin de restreindre l'accès à certaines actions ou services AWS. Cela aide à sécuriser votre environnement AWS en s'assurant que chaque utilisateur ou service dispose uniquement des permissions dont il a besoin.
+
+---
+
+### **Pourquoi tout cela est important ?**
+
+Chaque composant de ce pipeline a été choisi pour sa capacité à rendre votre projet plus efficace, sécurisé, et évolutif. En utilisant ces services ensemble, vous créez une infrastructure robuste qui peut traiter de grandes quantités de données, les analyser, et les visualiser de manière intuitive. C'est cette combinaison de technologies qui permet aux analystes de votre organisation de prendre des décisions éclairées basées sur des données précises et bien préparées.
+
+
+
