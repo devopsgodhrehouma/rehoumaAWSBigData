@@ -351,7 +351,7 @@ Vous devez créer l'infrastructure pour héberger ces données afin que les anal
 🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇🥇
 
 ----
-*Partie3 - Explication des différents composants du projet Capstone, QUI FAIT QUOI**
+*Partie4 - Explication des différents composants du projet Capstone, QUI FAIT QUOI*
 
 ----
 
