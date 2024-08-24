@@ -1,6 +1,6 @@
 # **Réalisation d'un ETL sur un Jeu de Données en Utilisant AWS Glue**
 
-## **Aperçu du Lab et Objectifs**
+# **Aperçu du Lab et Objectifs**
 
 Les problèmes liés au Big Data impliquent souvent un grand nombre de sources de données hétérogènes. En tant qu'analyste de données, il est possible que vous ne connaissiez pas le schéma de certaines sources de données. Cela correspond à l'aspect de la variété parmi les cinq V du Big Data (volume, variété, vélocité, véracité, et valeur). Dans ce lab, vous allez utiliser AWS Glue pour effectuer l'extraction, la transformation et le chargement (ETL) d'un jeu de données. Vous pouvez diriger AWS Glue vers une source de données, et il peut inférer un schéma basé sur les types de données qu'il découvre. AWS Glue construit ensuite un catalogue de données contenant les métadonnées des différentes sources de données.
 
@@ -18,21 +18,10 @@ Après avoir terminé ce lab, vous serez capable de :
 6. Confirmer qu'un utilisateur avec la politique IAM peut utiliser l'interface en ligne de commande AWS (AWS CLI) pour accéder à la base de données AWS Glue créée par le crawler.
 7. Confirmer qu'un utilisateur peut exécuter le crawler AWS Glue lorsque les données sources changent.
 
----
-
-## **Durée**
-
-Ce lab nécessitera environ 90 minutes pour être complété.
 
 ---
 
-## **Restrictions sur les Services AWS**
-
-Dans cet environnement de lab, l'accès aux services AWS et aux actions de service peut être restreint à ceux nécessaires pour compléter les instructions du lab. Vous pourriez rencontrer des erreurs si vous tentez d'accéder à d'autres services ou d'effectuer des actions au-delà de celles décrites dans ce lab.
-
----
-
-## **Scénario**
+# **Scénario**
 
 L'équipe de science des données vous a demandé de créer une série de preuves de concept (POC) pour utiliser les services AWS afin de répondre à de nombreux besoins en ingénierie et analyse des données de l'université. Mary, un membre de l'équipe de science des données, a vu ce qu'Athena peut faire pour créer des tables avec des schémas définis et en est impressionnée. Elle vous demande s'il est possible d'inférer automatiquement les colonnes et les types de données. La définition du schéma prend beaucoup de temps lorsqu'elle traite de grandes quantités de données variées. Vous souhaitez développer une POC pour utiliser AWS Glue, conçu pour des cas d'utilisation similaires.
 
@@ -46,13 +35,13 @@ Lorsque vous démarrez le lab, l'environnement contiendra les ressources illustr
 
 ---
 
-## **Environnement du Lab**
+# **Environnement du Lab**
 
 L'environnement du lab est créé avec un modèle CloudFormation déployé lorsque vous lancez le lab. Le stack CloudFormation résultant crée deux buckets S3 intitulés `data-science-bucket` et `glue-1950-bucket`, une politique IAM intitulée `Policy-For-Data-Scientists`, et un rôle IAM intitulé `gluelab`.
 
 ---
 
-## **Architecture du Lab**
+# **Architecture du Lab**
 
 1. Vous créerez et utiliserez un crawler AWS Glue nommé `weather` avec le rôle IAM `gluelab` pour accéder au jeu de données GHCN-D, qui se trouve dans un bucket S3 dans un autre compte AWS. Le crawler peuplera la base de données `weatherdata` dans le catalogue de données AWS Glue.
 2. Vous utiliserez également la console Glue pour transformer la base de données en modifiant son schéma.
@@ -65,7 +54,7 @@ L'environnement du lab est créé avec un modèle CloudFormation déployé lorsq
 
 ---
 
-## **Accès à la Console de Gestion AWS**
+# **Accès à la Console de Gestion AWS**
 
 1. En haut de ces instructions, choisissez **Start Lab**.
 
@@ -81,11 +70,11 @@ L'environnement du lab est créé avec un modèle CloudFormation déployé lorsq
 
 ---
 
-## **Tâche 1 : Utilisation d'un Crawler AWS Glue avec le Jeu de Données GHCN-D**
+# **Tâche 1 : Utilisation d'un Crawler AWS Glue avec le Jeu de Données GHCN-D**
 
 En tant qu'ingénieur ou analyste de données, vous ne connaissez peut-être pas toujours le schéma des données que vous devez analyser. AWS Glue est conçu pour cette situation. Vous pouvez diriger AWS Glue vers des données stockées sur AWS, et le service découvrira vos données. AWS Glue stockera ensuite les métadonnées associées (par exemple, la définition de la table et le schéma) dans le catalogue de données AWS Glue. Vous y parvenez en créant un crawler, qui inspecte la source de données et infère un schéma en fonction des données.
 
-### **Étapes :**
+# **Étapes :**
 
 1. **Configurer et créer le crawler AWS Glue :**
 
@@ -179,7 +168,7 @@ En tant qu'ingénieur ou analyste de données, vous ne connaissez peut-être pas
 
 ---
 
-### **Résumé de la Tâche 1**
+# **Résumé de la Tâche 1**
 
 Dans cette tâche, vous avez utilisé la console pour créer un crawler dans AWS Glue. Vous avez dirigé le crawler vers des données stockées dans un bucket S3, et le crawler a découvert les données. Ensuite, le crawler a stocké les métadonnées associées (la définition de la table et le schéma) dans un catalogue de données. En utilisant un crawler dans AWS Glue, vous pouvez inspecter une source de données et en inférer le schéma.
 
@@ -187,11 +176,11 @@ L'équipe peut désormais utiliser des crawlers pour inspecter rapidement les so
 
 ---
 
-## **Tâche 2 : Interrogation d'une Table en Utilisant Athena**
+# **Tâche 2 : Interrogation d'une Table en Utilisant Athena**
 
 Maintenant que vous avez créé le catalogue de données, vous pouvez utiliser les métadonnées pour interroger les données plus en détail en utilisant Athena.
 
-### **Étapes :**
+# **Étapes :**
 
 1. **Configurer un bucket S3 pour stocker les résultats des requêtes Athena :**
 
@@ -272,7 +261,7 @@ Maintenant que vous avez créé le catalogue de données, vous pouvez utiliser l
 
 ---
 
-### **Résumé de la Tâche 2**
+# **Résumé de la Tâche 2**
 
 Dans cette tâche, vous avez appris à utiliser Athena pour interroger des tables dans une base de données créée par un crawler AWS Glue. Vous avez créé une table pour toutes les données après 1950 à partir du jeu de données original. Vous avez utilisé le format Apache Parquet pour optimiser vos requêtes Athena, ce qui a réduit le temps nécessaire pour compléter chaque requête, entraînant une réduction des coûts. Après avoir isolé ces données, vous avez créé une vue qui calculait la température maximale moyenne pour chaque année.
 
@@ -280,13 +269,13 @@ AWS Glue s'intègre avec les jeux de données originaux stockés dans Amazon S3.
 
 ---
 
-## **Tâche 3 : Création d'un Modèle CloudFormation pour un Crawler AWS Glue**
+# **Tâche 3 : Création d'un Modèle CloudFormation pour un Crawler AWS Glue**
 
 Dans la tâche 1, vous avez utilisé la console pour créer un crawler AWS Glue pour inspecter la source de données et inférer un schéma. Cependant, l'équipe travaille avec de nombreux jeux de données dans différents comptes AWS, y compris pour le développement, les tests et la production. Par conséquent, il serait utile de réutiliser les crawlers à travers ces environnements, surtout lorsque de nouvelles données sont ajoutées aux jeux de données. Il serait également utile d'utiliser l'AWS CLI pour exécuter le crawler.
 
 Si votre crawler s'exécute plus d'une fois, peut-être selon un calendrier, il recherche de nouveaux fichiers ou tables ou des fichiers ou tables modifiés dans votre magasin de données. La sortie du crawler inclut les nouvelles tables et partitions trouvées depuis la dernière exécution.
 
-### **Étapes :**
+# **Étapes :**
 
 1. **Trouver le Numéro de Ressource Amazon (ARN) pour le rôle IAM `gluelab` :**
 
@@ -472,19 +461,19 @@ Si votre crawler s'exécute plus d'une fois, peut-être selon un calendrier, il 
 
 ---
 
-### **Résumé de la Tâche 3**
+# **Résumé de la Tâche 3**
 
 Dans cette tâche, vous avez appris à intégrer un crawler AWS Glue dans un modèle CloudFormation. Vous avez également appris à utiliser l'AWS CLI dans le terminal AWS Cloud9 pour valider et déployer le modèle afin de créer le crawler. Avec le modèle, vous pouvez réutiliser le crawler dans d'autres comptes AWS. Ensuite, vous avez appris à confirmer que les ressources ont été créées avec le crawler (la base de données AWS Glue et les tables associées).
 
 ---
 
-## **Tâche 4 : Revue de la Politique IAM pour l'Accès à Athena et AWS Glue**
+# **Tâche 4 : Revue de la Politique IAM pour l'Accès à Athena et AWS Glue**
 
 Maintenant que vous avez créé le crawler en utilisant CloudFormation, examinez la politique IAM pour le crawler afin de vous assurer que d'autres utilisateurs peuvent l'utiliser en production.
 
 **Remarque :** La politique IAM pour le crawler a été créée pour vous ; vous n'avez pas la capacité de créer des politiques IAM dans l'environnement du lab.
 
-### **Étapes :**
+# **Étapes :**
 
 1. **Revoir la politique `Policy-For-Data-Scientists` dans IAM :**
 
@@ -499,17 +488,17 @@ Maintenant que vous avez créé le crawler en utilisant CloudFormation, examinez
 
 ---
 
-### **Résumé de la Tâche 4**
+# **Résumé de la Tâche 4**
 
 Dans cette tâche, vous avez examiné la politique IAM pour le groupe `DataScienceGroup`. La politique contient des permissions pour un accès limité à Amazon S3, AWS Glue, et Athena. La politique pourrait être utilisée comme une politique exemple pour les utilisateurs qui ont l'intention de réutiliser les crawlers construits par l'équipe des opérations. Comme avec tous les services dans AWS, les utilisateurs IAM doivent avoir les permissions appropriées appliquées pour pouvoir effectuer des actions.
 
 ---
 
-## **Tâche 5 : Confirmation que Mary Peut Accéder et Utiliser le Crawler AWS Glue**
+# **Tâche 5 : Confirmation que Mary Peut Accéder et Utiliser le Crawler AWS Glue**
 
 Maintenant que vous avez examiné la politique IAM, vous allez l'utiliser pour tester l'accès d'un autre utilisateur au crawler AWS Glue. Vous testerez également la capacité de l'utilisateur à utiliser le crawler pour extraire, transformer, et charger des données d'un jeu de données stocké dans Amazon S3 dans une base de données AWS Glue.
 
-### **Étapes :**
+# **Étapes :**
 
 1. **Récupérer les informations d'identification de l'utilisateur IAM `mary`, et les stocker comme variables bash :**
 
@@ -608,7 +597,7 @@ uter la commande `get-crawler`, exécutez la commande suivante :
 
 ---
 
-### **Résumé de la Tâche 5**
+# **Résumé de la Tâche 5**
 
 Ce résultat confirme que `mary` a accès au crawler AWS Glue que vous avez créé et déployé avec CloudFormation. Cela est dû au fait que les permissions dans la politique IAM lui permettent de lister, obtenir, et récupérer les métadonnées pour le crawler. Les autres permissions associées à la politique incluent les éléments suivants :
 
@@ -618,26 +607,16 @@ Ce résultat confirme que `mary` a accès au crawler AWS Glue que vous avez cré
 
 ---
 
-## **Félicitations !**
+# **Félicitations !**
 
 Vous avez appris à créer un crawler AWS Glue manuellement et en utilisant CloudFormation afin de pouvoir le déployer pour des utilisateurs avec une politique IAM sécurisée. Comme le crawler est dans un modèle CloudFormation, vous pouvez réutiliser le modèle pour créer et déployer le crawler dans n'importe quel compte AWS et changer les paramètres selon vos besoins.
 
 ---
 
-### **Mise à Jour de l'Équipe**
+# **Mise à Jour de l'Équipe**
 
 L'équipe est heureuse de ce que vous avez appris et démontré en utilisant Athena, AWS Glue, et CloudFormation. Maintenant que vous avez partagé ce que vous avez appris, l'équipe pourra simplifier ses charges de travail et utiliser AWS de manière à suivre les meilleures pratiques.
 
----
-
-## **Soumettre Votre Travail**
-
-1. Pour enregistrer votre progression, choisissez **Submit** en haut de ces instructions.
-2. Lorsqu'on vous le demande, choisissez **Oui**.
-3. Après quelques minutes, le panneau de notes apparaît et vous montre combien de points vous avez obtenus pour chaque tâche. Si les résultats ne s'affichent pas après quelques minutes, choisissez **Grades** en haut de ces instructions.
-   - **Important :** Certains contrôles effectués par le processus de soumission dans ce lab ne vous donneront du crédit que s'il s'est écoulé au moins 5 minutes depuis que vous avez effectué l'action. Si vous ne recevez pas de crédit la première fois que vous soumettez, vous devrez peut-être attendre quelques minutes et soumettre à nouveau pour recevoir le crédit pour ces éléments.
-   - **Astuce :** Vous pouvez soumettre votre travail plusieurs fois. Après avoir modifié votre travail, choisissez **Submit** à nouveau. Votre dernière soumission est enregistrée pour ce lab.
-4. Pour trouver des commentaires détaillés sur votre travail, choisissez **Rapport de soumission**.
 
 ---
 
