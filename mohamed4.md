@@ -202,6 +202,18 @@ Vous allez maintenant filtrer les données pour ne conserver que celles postéri
 -------
 -------
 
+
+### Étape 7 : Calculer la température moyenne annuelle dans Athena
+
+Pour obtenir des insights sur les données climatiques, vous allez maintenant calculer la **température maximale moyenne annuelle** à partir des données stockées.
+
+#### Détails :
+- Vous créerez une vue pour isoler les températures maximales (`TMAX`).
+- Ensuite, vous exécuterez une requête pour obtenir la température moyenne annuelle.
+
+#### Étapes pour calculer la température moyenne annuelle :
+
+
 ### Étape 7 (suite) : Calculer la température moyenne annuelle dans Athena
 
 -------
