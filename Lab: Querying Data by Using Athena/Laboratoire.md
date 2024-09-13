@@ -10,7 +10,7 @@ Après quelques recherches, vous découvrez qu'Athena d'Amazon fournit cette fon
 
 Dans ce laboratoire, vous apprendrez à utiliser Athena et AWS Glue pour interroger des données stockées dans Amazon S3.
 
-### À la fin de ce laboratoire, vous devriez être capable de :
+# À la fin de ce laboratoire, vous devriez être capable de :
 
 - Utiliser l'éditeur de requêtes Athena pour créer une base de données et une table AWS Glue.
 - Définir le schéma de la base de données AWS Glue et des tables associées en utilisant la fonctionnalité Athena d'ajout en bloc de colonnes.
@@ -21,13 +21,9 @@ Dans ce laboratoire, vous apprendrez à utiliser Athena et AWS Glue pour interro
 - Examiner une politique IAM (Identity and Access Management) qui peut être attribuée aux utilisateurs souhaitant utiliser des requêtes nommées Athena.
 - Confirmer qu'un utilisateur peut accéder à une requête nommée Athena en utilisant l'interface en ligne de commande AWS (CLI AWS) dans le terminal AWS Cloud9.
 
-### Durée du laboratoire
+# Durée du laboratoire
 
 Ce laboratoire prendra environ **90 minutes** à compléter.
-
-### Restrictions des services AWS
-
-Dans cet environnement de laboratoire, l'accès aux services AWS et aux actions de services peut être limité à ceux nécessaires pour compléter les instructions du laboratoire. Vous pourriez rencontrer des erreurs si vous tentez d'accéder à d'autres services ou d'effectuer des actions au-delà de celles décrites dans ce laboratoire.
 
 ## Scénario
 
