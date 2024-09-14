@@ -25,10 +25,8 @@
 
 - Ces services peuvent être combinés en fonction des besoins spécifiques de votre architecture cloud pour maximiser les performances, la sécurité et l'efficacité des coûts.
 
+----
 # QUIZ
-
-Voici un ensemble de questions à choix multiples (QCM) basées sur des cas d’utilisation pour **on-premises**, **cloud**, et **hybride**, dans le style des examens de certification AWS. Ces questions couvrent divers scénarios d'architecture cloud et de migration.
-
 ---
 
 ### 1. **Vous gérez une infrastructure existante sur site qui subit des pannes fréquentes en raison de la capacité de stockage limitée. Vous envisagez de migrer certaines parties vers AWS. Quelle architecture convient le mieux pour minimiser les interruptions de service tout en optimisant les coûts ?**
