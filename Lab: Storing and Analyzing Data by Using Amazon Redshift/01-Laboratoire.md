@@ -42,6 +42,10 @@ Dans cette tâche, vous allez faire ce qui suit :
 - Examiner les permissions dans la politique IAM AmazonS3ReadOnlyAccess.
 - Examiner les permissions dans la politique IAM RedshiftIAMLabPolicy.
 
+---------------------------------------------------------------
+---------------------------------------------------------------
+---------------------------------------------------------------
+
 # Tâche 1 : Révision du rôle IAM pour accéder à Amazon Redshift (suite)
 
 # Accéder au rôle IAM et obtenir l'ARN
@@ -64,7 +68,9 @@ Dans cette tâche, vous allez faire ce qui suit :
 
 Dans cette tâche, vous avez examiné un rôle qui permet à Amazon S3 d'avoir un accès en lecture seule à Amazon Redshift. Vous avez également examiné un rôle qui permet à Amazon Redshift d'accéder à Amazon S3, EC2, et aux ressources VPC. Gardez ces autorisations à l'esprit en poursuivant le lab.
 
----
+---------------------------------------------------------------
+---------------------------------------------------------------
+---------------------------------------------------------------
 
 # Tâche 2 : Création et configuration d'un cluster Redshift
 
@@ -117,7 +123,9 @@ Attendez que le statut du cluster passe de **Modifying** à **Available** avant 
 
 Dans cette tâche, vous avez créé un cluster Redshift et associé le rôle IAM **MyRedshiftRole** au cluster. Ce rôle permet à Amazon Redshift d'accéder aux ressources Amazon S3 pour charger des jeux de données. Vous avez également créé un groupe de sécurité pour le cluster afin que d'autres ressources, comme les instances EC2, puissent y accéder via le port 5439.
 
----
+---------------------------------------------------------------
+---------------------------------------------------------------
+---------------------------------------------------------------
 
 # Tâche 3 : Création de tables dans la base de données
 
@@ -191,7 +199,9 @@ create table sales(
 
 Dans cette tâche, vous avez accédé à la console Amazon Redshift et créé les tables **users**, **date**, et **sales** dans la base de données **dev**.
 
----
+---------------------------------------------------------------
+---------------------------------------------------------------
+---------------------------------------------------------------
 
 # Tâche 4 : Chargement des données depuis Amazon S3
 
@@ -225,7 +235,9 @@ delimiter '\t' timeformat 'MM/DD/YYYY HH:MI:SS' region 'us-west-2';
 
 Dans cette tâche, vous avez chargé un jeu de données dans votre cluster Redshift. Vous avez utilisé la commande `COPY` pour copier les données des fichiers texte situés dans Amazon S3 vers les tables que vous avez créées dans la base de données. Vous avez également appris à configurer un délimiteur dans la commande `COPY` pour vous assurer que les données sont correctement chargées et que chaque enregistrement correspond au schéma de sa table.
 
----
+---------------------------------------------------------------
+---------------------------------------------------------------
+---------------------------------------------------------------
 
 # Tâche 5 : Interroger les données
 
@@ -272,7 +284,9 @@ Cette requête renvoie les noms d'utilisateur des acheteurs ainsi que la quantit
 
 Dans cette tâche, vous avez utilisé SQL pour interroger la base de données Redshift. Vous avez exécuté des requêtes pour obtenir des informations sur les ventes et les acheteurs à partir du jeu de données chargé dans Redshift. L'utilisation de SQL facilite l'analyse des données dans Redshift, et vous pouvez l'intégrer à des flux de travail plus larges.
 
----
+---------------------------------------------------------------
+---------------------------------------------------------------
+---------------------------------------------------------------
 
 # Tâche 6 : Exécution de requêtes depuis l'AWS CLI
 
@@ -348,7 +362,9 @@ La sortie sera similaire à ceci :
 
 Dans cette tâche, vous avez appris à utiliser l'interface AWS CLI pour interroger une base de données Redshift. L'utilisation de l'API et de l'interface CLI vous permet d'automatiser des tâches et d'intégrer des requêtes Redshift dans des applications.
 
----
+---------------------------------------------------------------
+---------------------------------------------------------------
+---------------------------------------------------------------
 
 # Tâche 7 : Révision de la politique IAM pour accéder à Amazon Redshift
 
@@ -365,7 +381,9 @@ La politique permet à l'utilisateur Mary d'exécuter des actions limitées sur 
 
 Dans cette tâche, vous avez examiné une politique IAM qui accorde un accès limité à l'API Redshift Data. Ce type de politique permet de définir des autorisations spécifiques pour des utilisateurs qui doivent interagir avec Redshift via l'API.
 
----
+---------------------------------------------------------------
+---------------------------------------------------------------
+---------------------------------------------------------------
 
 # Tâche 8 : Vérification que les utilisateurs peuvent exécuter des requêtes sur la base de données Redshift
 
