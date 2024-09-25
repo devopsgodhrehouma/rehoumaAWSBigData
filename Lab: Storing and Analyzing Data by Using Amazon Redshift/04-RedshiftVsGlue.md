@@ -42,3 +42,36 @@ Amazon Redshift est un entrepôt de données conçu spécifiquement pour les req
 Dans le contexte de ce lab, où l'objectif est d'analyser un grand ensemble de données sur les ventes de billets en exécutant des requêtes SQL, Amazon Redshift est la solution idéale. Il est optimisé pour des charges de travail analytiques massives, prend en charge des requêtes SQL complexes sur des données en colonnes, et offre une performance élevée pour des analyses répétées sur des jeux de données volumineux.
 
 AWS Glue, en revanche, est plus adapté pour des tâches d'intégration et de préparation des données, et il est souvent utilisé en amont ou en complément de services comme Redshift. Cependant, dans ce lab, comme les données sont déjà prêtes à être analysées sans besoin d'une transformation ETL complexe, Redshift est un meilleur choix pour exécuter directement des requêtes analytiques.
+
+
+# Table comparative pour vous aider à comprendre quand utiliser **Amazon Redshift** ou **AWS Glue**, en fonction des besoins spécifiques :
+
+| **Critères**                      | **Amazon Redshift**                                        | **AWS Glue**                                                |
+|------------------------------------|------------------------------------------------------------|-------------------------------------------------------------|
+| **Type de service**                | Entrepôt de données (Data Warehouse)                       | Outil ETL (Extract, Transform, Load)                        |
+| **Usage principal**                | Analyses massives de données structurées en colonnes       | Préparation, transformation et intégration de données        |
+| **Requêtes SQL**                   | Optimisé pour les requêtes SQL complexes sur des ensembles de données massifs | Pas conçu pour exécuter directement des requêtes SQL analytiques |
+| **Traitement des données**         | Stockage et analyse de données structurées                 | Transformation et préparation de données (pour analyse ultérieure) |
+| **Scénarios d'utilisation**        | - Entrepôt de données pour des analyses à grande échelle<br>- Rapports périodiques sur de grands ensembles de données<br>- Requêtes SQL interactives et fréquentes | - Tâches ETL pour déplacer les données d'un endroit à un autre<br>- Transformation et nettoyage des données avant de les charger dans un autre service (comme S3, Redshift, ou Athena) |
+| **Optimisation des performances**  | Stockage en colonnes pour accélérer les requêtes analytiques | Conçu pour automatiser les flux de données sans serveur (serverless) |
+| **Nature des données**             | Données structurées en colonnes (pour des requêtes SQL complexes) | Données brutes ou semi-structurées à transformer ou préparer |
+| **Capacité de stockage**           | Conçu pour stocker de grandes quantités de données sur le long terme (pétaoctets) | Ne stocke pas les données directement ; traite et transfère les données |
+| **Scalabilité**                    | Évolutif pour gérer des volumes de données massifs avec des nœuds de calcul supplémentaires | Évolutif sans gestion de serveurs ; facturé à l'utilisation (tâches ETL) |
+| **Fréquence d'utilisation**        | Requêtes fréquentes et répétées sur les mêmes ensembles de données | Tâches ETL ponctuelles ou récurrentes pour préparer et transformer des données |
+| **Latence des requêtes**           | Faible latence pour des requêtes fréquentes et des analyses interactives | Latence plus élevée, pas conçu pour des requêtes interactives répétées |
+| **Stockage des données**           | Stockage des données dans des tables pour des requêtes rapides | Ne stocke pas les données ; les données sont déplacées vers un autre service (comme S3 ou Redshift) après transformation |
+| **Transformation des données**     | Ne transforme pas directement les données ; sert principalement à l'analyse | Spécifiquement conçu pour transformer et préparer les données avant stockage |
+| **Intégration avec d'autres services** | Peut interagir avec S3, EC2, et d'autres services AWS pour l'analyse des données | Utilisé pour orchestrer le déplacement des données entre différents services AWS |
+| **Exemples d'utilisation**         | - Analyse des ventes de billets (comme dans ce lab)<br>- Tableau de bord analytique<br>- Requêtes SQL massives sur des données structurées | - Pipeline ETL pour transformer les fichiers bruts de logs vers un entrepôt de données<br>- Préparation des données pour l'analyse dans un entrepôt de données ou un lac de données (comme Redshift ou S3) |
+
+### **Quand utiliser Amazon Redshift ?**
+- **Analyse de données structurées** : Lorsque vous avez besoin d'exécuter des requêtes SQL sur des données structurées stockées en colonnes pour une analyse à grande échelle.
+- **Requêtes analytiques fréquentes** : Si vous avez besoin d'effectuer des analyses répétées ou fréquentes sur les mêmes ensembles de données.
+- **Performance élevée** : Lorsque les performances des requêtes sont essentielles, par exemple pour des tableaux de bord interactifs ou des rapports en temps réel.
+
+### **Quand utiliser AWS Glue ?**
+- **Tâches ETL** : Lorsque vous avez besoin d'extraire des données brutes de plusieurs sources, de les transformer (nettoyer, formater, enrichir), et de les charger dans un entrepôt de données comme Redshift, S3 ou un autre service.
+- **Préparation des données** : Si vous avez des données non structurées ou semi-structurées à transformer avant analyse.
+- **Flux de données automatisés** : Lorsque vous souhaitez automatiser le traitement de données sans avoir à gérer des serveurs (grâce à son architecture sans serveur).
+
+En résumé, **Amazon Redshift** est idéal pour les **analyses massives et répétées de données structurées**, tandis que **AWS Glue** est plus adapté pour les **pipelines ETL** et la **préparation des données** avant de les charger dans un entrepôt de données comme Redshift ou dans un lac de données comme S3.
