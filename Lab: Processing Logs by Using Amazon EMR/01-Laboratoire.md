@@ -146,3 +146,80 @@ Cliquez sur **Soumettre** pour enregistrer vos progrès et obtenir votre évalua
 
 Félicitations, vous avez terminé ce laboratoire !
 
+
+# Annexe : 
+
+La commande Hive suivante est une commande `hive` avec plusieurs options `-d`, qui définissent des variables dynamiques. Ces variables sont utilisées dans les requêtes Hive qui vont être exécutées. Voici une explication détaillée des différents éléments de cette commande :
+
+### Structure générale de la commande :
+```bash
+hive -d SAMPLE=s3://aws-tc-largeobjects/CUR-TF-200-ACDENG-1/emr-lab \
+     -d DAY=2009-04-13 \
+     -d HOUR=08 \
+     -d NEXT_DAY=2009-04-13 \
+     -d NEXT_HOUR=09 \
+     -d OUTPUT=s3://<HIVE-BUCKET-NAME>/output/
+```
+
+1. **hive** :
+   - C'est le binaire ou la commande principale pour exécuter une requête Hive. Apache Hive est un système de data warehousing utilisé pour lire, écrire et gérer de grandes bases de données stockées dans des systèmes distribués comme Hadoop.
+
+2. **`-d`** : 
+   - Cette option permet de définir des variables dynamiques. Ces variables peuvent ensuite être référencées dans une requête Hive à l’aide de la syntaxe `${VARIABLE_NAME}`. 
+
+### Détails des variables :
+
+1. **`-d SAMPLE=s3://aws-tc-largeobjects/CUR-TF-200-ACDENG-1/emr-lab`** :
+   - Cette variable `SAMPLE` définit un chemin vers un dossier ou un fichier stocké dans un bucket S3 d’Amazon (c'est un service de stockage d'objets).
+   - Ce chemin sera utilisé dans la requête Hive pour spécifier où trouver l’échantillon de données à traiter.
+   
+2. **`-d DAY=2009-04-13`** :
+   - La variable `DAY` représente une date spécifique. Elle pourrait être utilisée pour filtrer des données par date dans une requête Hive, par exemple dans une condition de type `WHERE date = '${DAY}'`.
+
+3. **`-d HOUR=08`** :
+   - La variable `HOUR` représente une heure spécifique de la journée, ici `08` (8 heures du matin). Cela peut servir à filtrer des données qui ont été collectées à cette heure-là.
+
+4. **`-d NEXT_DAY=2009-04-13`** :
+   - La variable `NEXT_DAY` indique un jour suivant ou simplement une autre date, mais dans ce cas particulier, elle est la même que `DAY`. Cela pourrait être utilisé pour comparer ou filtrer des événements entre deux jours différents ou dans une plage de temps.
+
+5. **`-d NEXT_HOUR=09`** :
+   - De même, la variable `NEXT_HOUR` indique l’heure suivante (`09`, soit 9 heures du matin). Cela pourrait être utilisé pour définir une plage horaire dans une requête Hive.
+
+6. **`-d OUTPUT=s3://<HIVE-BUCKET-NAME>/output/`** :
+   - La variable `OUTPUT` spécifie un chemin de sortie dans un bucket S3. C'est là où les résultats de la requête Hive vont être stockés. Le `<HIVE-BUCKET-NAME>` est un espace réservé qui doit être remplacé par le nom réel du bucket dans S3.
+
+### Utilisation dans une requête Hive :
+
+Dans une requête Hive, tu pourrais voir ces variables référencées comme suit :
+
+```sql
+INSERT OVERWRITE DIRECTORY '${OUTPUT}'
+SELECT * 
+FROM some_table
+WHERE sample_path = '${SAMPLE}'
+  AND day = '${DAY}'
+  AND hour >= '${HOUR}' AND hour < '${NEXT_HOUR}';
+```
+
+Ici, la commande `INSERT OVERWRITE` stocke les résultats de la requête dans le chemin S3 spécifié par `OUTPUT`. Le reste de la requête filtre les données en fonction du chemin du fichier (`SAMPLE`), de la date (`DAY`), et de l'heure (`HOUR` et `NEXT_HOUR`).
+
+### Résumé :
+- **SAMPLE** : Chemin des données d'entrée sur S3.
+- **DAY, HOUR** : Date et heure de départ pour le filtrage des données.
+- **NEXT_DAY, NEXT_HOUR** : Date et heure de fin de filtrage.
+- **OUTPUT** : Chemin de sortie pour les résultats de la requête sur S3.
+
+Chaque variable `-d` définit une valeur qui sera utilisée dans une requête Hive pour filtrer les données ou pour spécifier où les résultats seront stockés.
+
+
+----
+
+La commande Hive  définit plusieurs variables dynamiques avec l'option `-d`, utilisées dans une requête Hive pour filtrer des données et spécifier où les résultats seront stockés :
+
+- **SAMPLE** : chemin S3 des données source.
+- **DAY, HOUR** : date et heure de départ.
+- **NEXT_DAY, NEXT_HOUR** : date et heure de fin.
+- **OUTPUT** : chemin S3 pour stocker les résultats.
+
+Ces variables sont ensuite utilisées dans une requête Hive pour filtrer et traiter des données sur une plage horaire spécifique et exporter les résultats dans S3.
+
